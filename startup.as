@@ -9,9 +9,9 @@
 	; Compiler options:
 	;
 	; -osmartkey.cof -msmartkey.map --summary=default --output=default \
-	; sysinit.p1 ms82_eeprom.p1 rfid125.p1 ms82_pwm.p1 main.p1 \
-	; --chip=16F685 -P --runtime=default --opt=default -D__DEBUG=1 -g \
-	; --asmlist --errformat=Error   [%n] %f; %l.%c %s \
+	; --codeoffset=00 sysinit.p1 ms82_eeprom.p1 rfid125.p1 ms82_pwm.p1 \
+	; main.p1 --chip=16F685 -P --runtime=default --opt=default -D__DEBUG=1 \
+	; -g --asmlist --errformat=Error   [%n] %f; %l.%c %s \
 	; --msgformat=Advisory[%n] %s --warnformat=Warning [%n] %f; %l.%c %s
 	;
 

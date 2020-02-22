@@ -1019,7 +1019,7 @@ void eepromClear(void);
 # 5 "ms82_pwm.h"
 void SET_EPWM_ON(void);
 
-# 37 "MAIN.C"
+# 40 "MAIN.C"
 unsigned char buzFre=12;
 unsigned int timeOut ,timeTick=0;
 unsigned char mtState = 0;
@@ -1031,7 +1031,7 @@ unsigned char buffTag[25]={0,0,0x11,0x0b,0x4f,
 0,0,0x7e,0x51,0xe6,
 };
 
-# 54
+# 57
 void delay_x10ms(unsigned char t){
 while(t--)
 _delay((unsigned long)((10)*(8000000/4000.0)));
@@ -1051,13 +1051,13 @@ delay_x10ms(20);
 
 T0IE = 0;
 
-# 81
+# 84
 }
 
 void interrupt ISR(void)
 {
 
-# 110
+# 113
 if(T0IE&&T0IF)
 {
 T0IF = 0;
@@ -1065,11 +1065,11 @@ T0IF = 0;
 TMR0 = buzFre;
 RC0 = ~RC0;
 
-# 120
+# 123
 return;
 }
 
-# 142
+# 145
 }
 
 
@@ -1121,7 +1121,7 @@ void main(void)
 {
 
 
-# 192
+# 195
 #asm
  MOVLW 0x07
  MOVWF 0x19
@@ -1136,7 +1136,7 @@ gpio_init();
 timer_init();
 int_init();
 
-# 210
+# 213
 eepromWriteByte(0x7F,0xAA);
 eepromWriteByte(0x7F,0xAA);
 
@@ -1158,9 +1158,9 @@ if(eepromReadByte(0x06)!=0){
 
 eepromWriteByte(0x06,0);
 eepromWriteByte(0x06+1,0);
-eepromWriteByte(0x06+2,0x87);
-eepromWriteByte(0x06+3,0x3a);
-eepromWriteByte(0x06+4,0xf8);
+eepromWriteByte(0x06+2,0xc7);
+eepromWriteByte(0x06+3,0xee);
+eepromWriteByte(0x06+4,0xc7);
 
 }
 eepromReadBlock(0x06,buffTag,5*5);
@@ -1192,8 +1192,9 @@ id_clear(2,5);
 setState(3,0);
 tmp=1;
 
-beep2(0,3);
+beep(10,3);
 
+# 273
 }
 
 break;
@@ -1209,7 +1210,9 @@ id_clear(2,5);
 setState(3,0);
 tmp=1;
 
-beep2(0,3);
+beep(10,3);
+
+# 293
 }
 else if(idop==2 && idState == 0){
 
@@ -1217,14 +1220,16 @@ id_clear(3,5);
 setState(5,0);
 tmp=2;
 
-beep2(1,2);
+beep(10,2);
+
+# 305
 }
 break;
 case 3:
 
 if (idState == 0){
 
-# 302
+# 316
 if( idop !=1){
 tmp++;
 
@@ -1232,14 +1237,19 @@ if(tmp <=5){
 id_replate(tmp,keyID,buffTag);
 timeTick=0;
 
-beep2(1,2);
+beep(10,1);
+
+# 328
 }
 }else{
 
 }
 }else{
 
-beep2(0,1);
+
+beep(10,1);
+
+# 340
 }
 break;
 case 5:
@@ -1252,14 +1262,19 @@ if(tmp <=5){
 id_replate(tmp,keyID,buffTag);
 timeTick=0;
 
-beep2(1,2);
+
+beep(10,1);
+
+# 358
 }
 }else{
 
 }
 }else{
 
-beep2(0,1);
+beep(10,1);
+
+# 369
 }
 break;
 
@@ -1299,15 +1314,23 @@ break;
 if(mtState==0) RA3 = 1;
 else RA3 =0;
 
-# 382
-if(mtState == 2) {
+# 435
+if (mtState == 2) {
 
-RC0 =1;
-}else{
-RC0 =0;
-};
+TMR1ON = 1; T0IE = 1;
+if (timeTick % 4 == 0) {
 
-# 403
+if (buzFre == 0x6a) {
+buzFre = 12;
+} else {
+buzFre = 0x6a;
+}
+
+}
+} else {TMR1ON = 0; T0IE = 0;};
+
+
+
 timeTick++;
 
 }
