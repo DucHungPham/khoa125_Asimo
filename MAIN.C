@@ -27,17 +27,19 @@
     su dung timeOut chinh xac de vao trang thai nhap pw
 
 asimoBz =  Coi su dung cuon day
-asimoRl = Su dung coi ngoai, bat tat bang relay
+asimoRl = Su dung coi xe, bat tat bang relay
+asimoBzEx = Su dung coi roi, bat tat bang truc tiep
 */
 
 #include 	"main.h"
 
 #define maxTag 5
 ///=============
-#define asimoBz
-//#define asimoRl
+//#define asimoBz
+#define asimoRl
+#define asimoBzEx
 ///=============
-unsigned char buzFre = 12;
+
 unsigned int timeOut , timeTick = 0;
 unsigned char  mtState = 0;//
 unsigned char keyID[5] = {0, 0, 0, 0, 0};
@@ -60,18 +62,18 @@ void delay_x10ms(unsigned char t) {
 }
 void beep(unsigned char delay, unsigned char rep) {
 #ifdef asimoBz
-	TMR1ON = 1; T0IE = 1;
+	unsigned int t;
 
 	while (rep--) {
-		TMR1ON = 1; T0IE = 1;
-		buzFre = 42;	//45 80 (dec)
-		delay_x10ms(delay);
-		T0IE = 0;
-		TMR1ON = 0; buzzer = 0;
-		delay_x10ms(20);
-	}
+		t = 25 * delay;
+		while (t--) {
+			buzzer = ~buzzer;
+			__delay_us(428);
 
-	T0IE = 0;
+		}
+		buzzer = 0;
+		delay_x10ms(delay);
+	}
 #endif
 #ifdef asimoRl
 	while (rep--) {
@@ -110,6 +112,7 @@ void interrupt ISR(void)
 			}*/
 
 //====================
+/*
 	if (T0IE && T0IF)
 	{
 		T0IF = 0;
@@ -122,6 +125,7 @@ void interrupt ISR(void)
 #endif
 		return;
 	}
+	*/
 //====================
 //====================
 // Timer1 Interrup
@@ -189,15 +193,26 @@ void beep2(unsigned char sel, unsigned char rep) {
 	}
 }
 
+void buzDelay(unsigned char type) {
+	unsigned int t;
+	if (!type) t = 1600; //2000
+	else t = 2666;//3000
+
+	while (t--) {
+		buzzer = ~buzzer;
+		if (!type) {__delay_us(480);} //250us
+		else {__delay_us(290);}//150us
+	}
+
+}
+
 void main(void)
 {
-	// clear WDT
-#asm
-	MOVLW		0x07			//
-	MOVWF		0x19			//
-#endasm
 
 	unsigned char idop, tmp, idState = 0; // tag RFID code
+    unsigned int t;
+    unsigned char buzFre = 0;
+    unsigned char t1;
 	CLRWDT();
 
 	sys_init();
@@ -210,8 +225,8 @@ void main(void)
 //...
 //Write twice at an arbitrary address that is not used 0xAA
 // If the program has read and write EEPROM, this operation must be performed
-	eepromWriteByte(0x7F, 0xAA);
-	eepromWriteByte(0x7F, 0xAA);
+	eepromWriteByte(0xFF, 0xAA);
+	eepromWriteByte(0xFF, 0xAA);
 //them delay giua read delay write
 
 	TRISC &= 0xfe;
@@ -231,9 +246,9 @@ void main(void)
 		//write master tag
 		eepromWriteByte(__memBegin, 0); //0= master xuong
 		eepromWriteByte(__memBegin + 1, 0); //0
-		eepromWriteByte(__memBegin + 2, 0xc7); //87
-		eepromWriteByte(__memBegin + 3, 0xee); //3a
-		eepromWriteByte(__memBegin + 4, 0xc7); //f8
+		eepromWriteByte(__memBegin + 2, 0x87); //87
+		eepromWriteByte(__memBegin + 3, 0x3e); //3a
+		eepromWriteByte(__memBegin + 4, 0xf8); //f8
 
 	}
 	eepromReadBlock(__memBegin, buffTag, maxTag * 5);
@@ -411,29 +426,45 @@ void main(void)
 
 //==========
 #ifdef asimoRl
-		if (mtState == _Alert) {
+#ifdef asimoBzEx
+	if (mtState == _Alert) {
 
 			buzzer = 1;
 		} else {
 			buzzer = 0;
 		};
+#else
+		if (mtState == _Alert) {
+
+
+			if (timeTick % 3 == 0) {
+
+				buzzer = ~buzzer;
+
+			}
+		} else buzzer = 0;
+#endif
+        
 #endif
 
 #ifdef asimoBz
-
 		if (mtState == _Alert) {
-			// cac bo con lai
-			TMR1ON = 1; T0IE = 1;
-			if (timeTick % 4 == 0) {
 
-				if (buzFre == 0x6a) {
-					buzFre = 12;
-				} else {
-					buzFre = 0x6a;
-				}
+			//buzDelay(buzFre);
 
+			if (buzFre) t = 1600; //2000
+			else t = 2666;//3000
+
+			while (t--) {
+				buzzer = ~buzzer;
+				if (buzFre) {__delay_us(480);} //250us
+				else {__delay_us(290);}//150us
 			}
-		} else {TMR1ON = 0; T0IE = 0;};
+			buzFre = ~buzFre;
+
+		}
+		else {__delay_ms(800);}//=400ms
+		
 #endif
 //=============
 

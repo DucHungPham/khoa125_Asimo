@@ -6,9 +6,8 @@
 unsigned int timerOut(unsigned char Logic,unsigned int time){
 	unsigned int CurTimer;
 CntOff;
-    CntH = 0;
     CntL = 0;
-    TMR1IF = 0;
+    T0IF = 0;
     CntOn;	
     while(RFID_ID==Logic){
          CurTimer= (CntH <<8 )| CntL;

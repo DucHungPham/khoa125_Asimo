@@ -9,26 +9,25 @@
 ====================================================*/
 void SET_EPWM_ON(void)
 {
-	TRISC |= 0b00000100; // GPIO off (2)
-	PR2 = 15; //T99
-	EPWMR1L =0; //Duty50
-	EPWM1CON = 0b10011100; //PWM EPWM1CON[5:4] =[01] => gia tri thuc te test dam bao duty 50% T=8us
-	TMR2 = 0;
-	TMR2IF = 0;
-	T2CON = 0B00000100;
-	while(TMR2IF==1) CLRWDT();
-	PWM1CON = 0b00010000; 
-	EPWM1AUX = 0b10001000;//P1DOE
-	TRISC &= 0b11111011;// GPIO on (2)
+	TRISC |= 0B00100000;		//关闭RC0和RC1输出,设置为输入
+	T2CON0 = 0B00000001;
+	T2CON1 = 0B00000000;
+	PR2H = 0;
+	PR2L = 7;
+	P1ADTH = 0;
+	P1ADTL = 4;
+    
+	P1OE = 0B00000001;
+	P1POL = 0B00000000;
+	P1CON = 0B00000000;
+    
+	TMR2H = 0;
+	TMR2L = 0;
+	TMR2IF = 0;					//清Timer2匹配标志位
+	TMR2ON = 1;					//开启Timer2
+	while(TMR2IF==0) CLRWDT();	//等待一个新的TMR2周期来临
+	TRISC &= 0B11011111;		//新的一个TMR2周期来临,开启RC0和RC1输出
 }
 /***************************
-PWM_T = (PR2+1)*4*Tosc*(Timer2 perscaler)
-Tosc=(1/8MHz)=0.125us
-Timer2prescaler 1:1
-T = (99+1)*4*0.125us*1=8us=>125KHz
-
-Duty = (EPWMR1L:EPWM1CON[5:4])/(4*(PR2+1))
-(EPWMR1L:EPWM1CON[5:4])=32
-D/T =32/(4*(15+1))=50%
 
 ***************************/

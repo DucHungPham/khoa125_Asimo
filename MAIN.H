@@ -2,7 +2,7 @@
 #define main_h
 
 #include	"SYSCFG.h";
-#include 	"MS82Fxx02.h";
+#include 	"MS86Fxx02.h";
 #include 	"sysInit.H"
 #include 	"rfid125.h"
 #include 	"ms82_eeprom.h"
@@ -22,18 +22,18 @@
 
 #define buzzer		RC0
 
-#define w125		RC2
-#define dataIn		RA4
+#define w125		RC5
+#define dataIn		RA5
 
 // Status
 #define _Open	0
 #define tOut_Open	0
 
 #define _PwOn	1
-#define tOut_PwOn	45	//~4.30s
+#define tOut_PwOn	12	//~4.30s
 
 #define _Alert		2
-#define tOut_Alert  220	//85~6.30s
+#define tOut_Alert  42	//85~6.30s
 #define add_Alert 0x08
 
 #define _subTagProg	3
@@ -43,13 +43,13 @@
 #define _norTagProg		5
 
 #define _rProg		6
-#define tOut_rProg	35 //~3s
+#define tOut_rProg	7 //~3s
 
 #define _PwTp		7
-#define tOut_PwTp	10
+#define tOut_PwTp	1
 
 #define _firstProg	8
-#define tOut_firstProg	10
+#define tOut_firstProg	4
 // save serial numbers
 #define serEE	0x10
 
