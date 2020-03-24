@@ -1070,14 +1070,7 @@ _delay((unsigned long)((10)*(8000000/4000.0)));
 }
 void beep(unsigned char delay, unsigned char rep) {
 
-# 79
-while (rep--) {
-RC0 = 1;
-delay_x10ms(delay);
-RC0 = 0;
-delay_x10ms(20);
-}
-
+# 86
 }
 
 void interrupt ISR(void)
@@ -1182,7 +1175,7 @@ if (eepromReadByte(0x06) != 0) {
 eepromWriteByte(0x06, 0);
 eepromWriteByte(0x06 + 1, 0);
 eepromWriteByte(0x06 + 2, 0x87);
-eepromWriteByte(0x06 + 3, 0x3e);
+eepromWriteByte(0x06 + 3, 0x3a);
 eepromWriteByte(0x06 + 4, 0xf8);
 
 }
@@ -1215,9 +1208,7 @@ id_clear(2, 5);
 setState(3, 0);
 tmp = 1;
 
-# 286
-beep2(0, 3);
-
+# 288
 }
 
 break;
@@ -1233,9 +1224,7 @@ id_clear(2, 5);
 setState(3, 0);
 tmp = 1;
 
-# 306
-beep2(0, 3);
-
+# 308
 }
 else if (idop == 2 && idState == 0) {
 
@@ -1243,9 +1232,7 @@ id_clear(3, 5);
 setState(5, 0);
 tmp = 2;
 
-# 318
-beep2(1, 2);
-
+# 320
 }
 break;
 case 3:
@@ -1260,18 +1247,14 @@ if (tmp <= 5) {
 id_replate(tmp, keyID, buffTag);
 timeTick = 0;
 
-# 341
-beep2(1, 2);
-
+# 343
 }
 } else {
 
 }
 } else {
 
-# 353
-beep2(0, 1);
-
+# 355
 }
 break;
 case 5:
@@ -1284,18 +1267,14 @@ if (tmp <= 5) {
 id_replate(tmp, keyID, buffTag);
 timeTick = 0;
 
-# 371
-beep2(1, 2);
-
+# 373
 }
 } else {
 
 }
 } else {
 
-# 382
-beep2(0, 1);
-
+# 384
 }
 break;
 
@@ -1316,7 +1295,7 @@ if ((timeOut != 0) && ( timeTick > timeOut)) {
 switch (mtState) {
 
 case 1:
-setState(2, 42);
+setState(2, 60);
 
 break;
 case 2:
@@ -1334,14 +1313,6 @@ break;
 
 if (mtState == 0) RA3 = 1;
 else RA3 = 0;
-
-# 430
-if (mtState == 2) {
-
-RC0 = 1;
-} else {
-RC0 = 0;
-};
 
 # 471
 timeTick++;

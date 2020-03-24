@@ -28,7 +28,7 @@
 
 asimoBz =  Coi su dung cuon day
 asimoRl = Su dung coi xe, bat tat bang relay
-asimoBzEx = Su dung coi roi, bat tat bang truc tiep
+asimoBzEx = Su dung coi roi, bat tat bang trans truc tiep
 */
 
 #include 	"main.h"
@@ -36,7 +36,7 @@ asimoBzEx = Su dung coi roi, bat tat bang truc tiep
 #define maxTag 5
 ///=============
 //#define asimoBz
-#define asimoRl
+//#define asimoRl
 #define asimoBzEx
 ///=============
 
@@ -247,7 +247,7 @@ void main(void)
 		eepromWriteByte(__memBegin, 0); //0= master xuong
 		eepromWriteByte(__memBegin + 1, 0); //0
 		eepromWriteByte(__memBegin + 2, 0x87); //87
-		eepromWriteByte(__memBegin + 3, 0x3e); //3a
+		eepromWriteByte(__memBegin + 3, 0x3a); //3a
 		eepromWriteByte(__memBegin + 4, 0xf8); //f8
 
 	}

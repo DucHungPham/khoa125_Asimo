@@ -51,12 +51,10 @@ pclath	equ	10
 	FNCALL	_main,_get_RFID
 	FNCALL	_main,_id_search
 	FNCALL	_main,_id_clear
-	FNCALL	_main,_beep2
 	FNCALL	_main,_id_replate
 	FNCALL	_id_clear,_id_replate
 	FNCALL	_id_replate,___bmul
 	FNCALL	_id_replate,_eepromWriteBlock
-	FNCALL	_beep2,_delay_x10ms
 	FNCALL	_eepromWriteBlock,_eepromWriteByte
 	FNCALL	_id_search,_comArr
 	FNCALL	_id_search,___lbdiv
@@ -427,8 +425,6 @@ _PEIE	set	94
 _RA3	set	43
 	global	_RA5
 _RA5	set	45
-	global	_RC0
-_RC0	set	56
 	global	_T0IE
 _T0IE	set	93
 	global	_T0IF
@@ -587,8 +583,6 @@ __pcstackCOMMON:
 ?_int_init:	; 0 bytes @ 0x0
 	global	?_SET_EPWM_ON
 ?_SET_EPWM_ON:	; 0 bytes @ 0x0
-	global	?_delay_x10ms
-?_delay_x10ms:	; 0 bytes @ 0x0
 	global	?_ISR
 ?_ISR:	; 0 bytes @ 0x0
 	global	??_ISR
@@ -614,8 +608,6 @@ __pcstackCOMMON:
 ?_eepromWriteByte:	; 0 bytes @ 0x2
 	global	??_SET_EPWM_ON
 ??_SET_EPWM_ON:	; 0 bytes @ 0x2
-	global	??_delay_x10ms
-??_delay_x10ms:	; 0 bytes @ 0x2
 	global	?_setState
 ?_setState:	; 0 bytes @ 0x2
 	global	?_comArr
@@ -668,8 +660,6 @@ eepromReadBlock@buff:	; 1 bytes @ 0x4
 comArr@len2:	; 1 bytes @ 0x4
 	global	timerOut@Logic
 timerOut@Logic:	; 1 bytes @ 0x4
-	global	delay_x10ms@t
-delay_x10ms@t:	; 1 bytes @ 0x4
 	global	setState@stt
 setState@stt:	; 1 bytes @ 0x4
 	global	___bmul@multiplier
@@ -679,14 +669,10 @@ ___lbdiv@counter:	; 1 bytes @ 0x4
 	ds	1
 	global	??_comArr
 ??_comArr:	; 0 bytes @ 0x5
-	global	?_beep2
-?_beep2:	; 0 bytes @ 0x5
 	global	eepromReadBlock@len
 eepromReadBlock@len:	; 1 bytes @ 0x5
 	global	eepromWriteByte@EEAddr
 eepromWriteByte@EEAddr:	; 1 bytes @ 0x5
-	global	beep2@rep
-beep2@rep:	; 1 bytes @ 0x5
 	global	___lbdiv@quotient
 ___lbdiv@quotient:	; 1 bytes @ 0x5
 	global	timerOut@CurTimer
@@ -696,12 +682,8 @@ timerOut@CurTimer:	; 2 bytes @ 0x5
 ??_eepromReadBlock:	; 0 bytes @ 0x6
 	global	?_eepromWriteBlock
 ?_eepromWriteBlock:	; 0 bytes @ 0x6
-	global	??_beep2
-??_beep2:	; 0 bytes @ 0x6
 	global	eepromWriteBlock@buff
 eepromWriteBlock@buff:	; 1 bytes @ 0x6
-	global	beep2@sel
-beep2@sel:	; 1 bytes @ 0x6
 	ds	1
 	global	??_get_RFID
 ??_get_RFID:	; 0 bytes @ 0x7
@@ -848,7 +830,6 @@ main@idop:	; 1 bytes @ 0x19
 ;;   _main->_id_replate
 ;;   _id_clear->_id_replate
 ;;   _id_replate->_eepromWriteBlock
-;;   _beep2->_delay_x10ms
 ;;   _eepromWriteBlock->_eepromWriteByte
 ;;   _id_search->_comArr
 ;;   _get_RFID->_timerOut
@@ -885,7 +866,7 @@ main@idop:	; 1 bytes @ 0x19
 ;; ---------------------------------------------------------------------------------
 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
 ;; ---------------------------------------------------------------------------------
-;; (0) _main                                                10    10      0    4539
+;; (0) _main                                                10    10      0    4451
 ;;                                             20 BANK0      6     6      0
 ;;                           _sys_init
 ;;                          _gpio_init
@@ -899,7 +880,6 @@ main@idop:	; 1 bytes @ 0x19
 ;;                           _get_RFID
 ;;                          _id_search
 ;;                           _id_clear
-;;                              _beep2
 ;;                         _id_replate
 ;; ---------------------------------------------------------------------------------
 ;; (1) _id_clear                                             7     6      1     718
@@ -912,10 +892,6 @@ main@idop:	; 1 bytes @ 0x19
 ;;                             ___bmul
 ;;                   _eepromWriteBlock
 ;; ---------------------------------------------------------------------------------
-;; (1) _beep2                                                2     1      1      88
-;;                                              5 COMMON     2     1      1
-;;                        _delay_x10ms
-;; ---------------------------------------------------------------------------------
 ;; (2) _eepromWriteBlock                                     5     3      2     178
 ;;                                              6 COMMON     5     3      2
 ;;                    _eepromWriteByte
@@ -925,9 +901,6 @@ main@idop:	; 1 bytes @ 0x19
 ;;                                              0 BANK0      2     2      0
 ;;                             _comArr
 ;;                            ___lbdiv
-;; ---------------------------------------------------------------------------------
-;; (2) _delay_x10ms                                          3     3      0      22
-;;                                              2 COMMON     3     3      0
 ;; ---------------------------------------------------------------------------------
 ;; (1) _get_RFID                                            21    21      0    1917
 ;;                                              7 COMMON     1     1      0
@@ -1004,8 +977,6 @@ main@idop:	; 1 bytes @ 0x19
 ;;       ___bmul
 ;;       _eepromWriteBlock
 ;;         _eepromWriteByte
-;;   _beep2
-;;     _delay_x10ms
 ;;   _id_replate
 ;;     ___bmul
 ;;     _eepromWriteBlock
@@ -1079,7 +1050,6 @@ __pmaintext:
 ;;		_get_RFID
 ;;		_id_search
 ;;		_id_clear
-;;		_beep2
 ;;		_id_replate
 ;; This function is called by:
 ;;		Startup code after reset
@@ -1096,39 +1066,39 @@ _main:
 ; Regs used in _main: [wreg-fsr0h+status,2+status,0+pclath+cstack]
 	line	212
 	
-l6436:	
+l6365:	
 ;MAIN.C: 213: unsigned int t;
 ;MAIN.C: 214: unsigned char buzFre = 0;
 	clrf	(main@idState)
 	line	216
 	
-l6438:	
+l6367:	
 # 216 "MAIN.C"
 clrwdt ;#
 psect	maintext
 	line	218
 	
-l6440:	
+l6369:	
 ;MAIN.C: 218: sys_init();
 	fcall	_sys_init
 	line	219
 	
-l6442:	
+l6371:	
 ;MAIN.C: 219: gpio_init();
 	fcall	_gpio_init
 	line	221
 	
-l6444:	
+l6373:	
 ;MAIN.C: 221: timer_init();
 	fcall	_timer_init
 	line	222
 	
-l6446:	
+l6375:	
 ;MAIN.C: 222: int_init();
 	fcall	_int_init
 	line	228
 	
-l6448:	
+l6377:	
 ;MAIN.C: 228: eepromWriteByte(0xFF, 0xAA);
 	movlw	(0AAh)
 	movwf	(?_eepromWriteByte)
@@ -1136,7 +1106,7 @@ l6448:
 	fcall	_eepromWriteByte
 	line	229
 	
-l6450:	
+l6379:	
 ;MAIN.C: 229: eepromWriteByte(0xFF, 0xAA);
 	movlw	(0AAh)
 	movwf	(?_eepromWriteByte)
@@ -1144,18 +1114,18 @@ l6450:
 	fcall	_eepromWriteByte
 	line	232
 	
-l6452:	
+l6381:	
 ;MAIN.C: 232: TRISC &= 0xfe;
 	bsf	status, 5	;RP0=1, select bank1
 	bcf	(135)^080h+(0/8),(0)&7	;volatile
 	line	234
 	
-l6454:	
+l6383:	
 ;MAIN.C: 234: SET_EPWM_ON();
 	fcall	_SET_EPWM_ON
 	line	238
 	
-l6456:	
+l6385:	
 ;MAIN.C: 238: _delay((unsigned long)((20)*(8000000/4000.0)));
 	opt asmopt_off
 movlw	52
@@ -1163,30 +1133,30 @@ movlw	52
 movwf	((??_main+0)+0+1),f
 	movlw	241
 movwf	((??_main+0)+0),f
-u1757:
+u1657:
 	decfsz	((??_main+0)+0),f
-	goto	u1757
+	goto	u1657
 	decfsz	((??_main+0)+0+1),f
-	goto	u1757
+	goto	u1657
 	nop2
 opt asmopt_on
 
 	line	243
 	
-l6458:	
+l6387:	
 ;MAIN.C: 243: if (eepromReadByte(0x06) != 0) {
 	movlw	(06h)
 	fcall	_eepromReadByte
 	xorlw	0
 	skipnz
-	goto	u1561
-	goto	u1560
-u1561:
-	goto	l6462
-u1560:
+	goto	u1471
+	goto	u1470
+u1471:
+	goto	l6391
+u1470:
 	line	247
 	
-l6460:	
+l6389:	
 ;MAIN.C: 247: eepromWriteByte(0x06, 0);
 	clrf	(?_eepromWriteByte)
 	movlw	(06h)
@@ -1203,8 +1173,8 @@ l6460:
 	movlw	(08h)
 	fcall	_eepromWriteByte
 	line	250
-;MAIN.C: 250: eepromWriteByte(0x06 + 3, 0x3e);
-	movlw	(03Eh)
+;MAIN.C: 250: eepromWriteByte(0x06 + 3, 0x3a);
+	movlw	(03Ah)
 	movwf	(?_eepromWriteByte)
 	movlw	(09h)
 	fcall	_eepromWriteByte
@@ -1216,7 +1186,7 @@ l6460:
 	fcall	_eepromWriteByte
 	line	254
 	
-l6462:	
+l6391:	
 ;MAIN.C: 253: }
 ;MAIN.C: 254: eepromReadBlock(0x06, buffTag, 5 * 5);
 	movlw	(_buffTag)&0ffh
@@ -1227,7 +1197,7 @@ l6462:
 	fcall	_eepromReadBlock
 	line	256
 	
-l6464:	
+l6393:	
 ;MAIN.C: 256: setState(1, 12);
 	movlw	0Ch
 	movwf	(?_setState)
@@ -1236,27 +1206,27 @@ l6464:
 	fcall	_setState
 	line	260
 	
-l6466:	
+l6395:	
 ;MAIN.C: 260: tmp = 0;
 	clrf	(main@tmp)
 	line	264
 	
-l6468:	
+l6397:	
 ;MAIN.C: 264: idop = get_RFID();
 	fcall	_get_RFID
 	movwf	(main@idop)
 	line	266
 	
-l6470:	
+l6399:	
 ;MAIN.C: 266: if (idop) {
 	movf	(main@idop),w
 	skipz
-	goto	u1570
-	goto	l6552
-u1570:
+	goto	u1480
+	goto	l6467
+u1480:
 	line	267
 	
-l6472:	
+l6401:	
 ;MAIN.C: 267: idop = id_search(keyID, buffTag);
 	movlw	(_buffTag)&0ffh
 	movwf	(?_id_search)
@@ -1265,33 +1235,33 @@ l6472:
 	movwf	(main@idop)
 	line	268
 ;MAIN.C: 268: switch (mtState) {
-	goto	l6548
+	goto	l6463
 	line	271
 	
-l6474:	
+l6403:	
 ;MAIN.C: 270: case 2:
 ;MAIN.C: 271: if ((idop > 1) && (idop < 6))
 	movlw	(02h)
 	subwf	(main@idop),w
 	skipc
-	goto	u1581
-	goto	u1580
-u1581:
-	goto	l6480
-u1580:
+	goto	u1491
+	goto	u1490
+u1491:
+	goto	l6409
+u1490:
 	
-l6476:	
+l6405:	
 	movlw	(06h)
 	subwf	(main@idop),w
 	skipnc
-	goto	u1591
-	goto	u1590
-u1591:
-	goto	l6480
-u1590:
+	goto	u1501
+	goto	u1500
+u1501:
+	goto	l6409
+u1500:
 	line	273
 	
-l6478:	
+l6407:	
 ;MAIN.C: 272: {
 ;MAIN.C: 273: setState(0, 0);
 	clrf	(?_setState)
@@ -1300,21 +1270,21 @@ l6478:
 	fcall	_setState
 	line	275
 ;MAIN.C: 275: }
-	goto	l4178
+	goto	l4175
 	line	276
 	
-l6480:	
+l6409:	
 ;MAIN.C: 276: else if (idop == 1)
 	decf	(main@idop),w
 	skipz
-	goto	u1601
-	goto	u1600
-u1601:
-	goto	l4178
-u1600:
+	goto	u1511
+	goto	u1510
+u1511:
+	goto	l4175
+u1510:
 	line	279
 	
-l6482:	
+l6411:	
 ;MAIN.C: 277: {
 ;MAIN.C: 279: id_clear(2, 5);
 	movlw	(05h)
@@ -1323,7 +1293,7 @@ l6482:
 	fcall	_id_clear
 	line	280
 	
-l6484:	
+l6413:	
 ;MAIN.C: 280: setState(3, 0);
 	clrf	(?_setState)
 	clrf	(?_setState+1)
@@ -1331,42 +1301,34 @@ l6484:
 	fcall	_setState
 	line	281
 	
-l6486:	
+l6415:	
 ;MAIN.C: 281: tmp = 1;
 	clrf	(main@tmp)
 	incf	(main@tmp),f
-	line	286
-	
-l6488:	
-;MAIN.C: 286: beep2(0, 3);
-	movlw	(03h)
-	movwf	(?_beep2)
-	movlw	(0)
-	fcall	_beep2
-	goto	l4178
+	goto	l4175
 	line	297
 	
-l6490:	
+l6417:	
 ;MAIN.C: 297: if (idop == 1 && idState == 0) {
 	decf	(main@idop),w
 	skipz
-	goto	u1611
-	goto	u1610
-u1611:
-	goto	l6502
-u1610:
+	goto	u1521
+	goto	u1520
+u1521:
+	goto	l6427
+u1520:
 	
-l6492:	
+l6419:	
 	movf	(main@idState),f
 	skipz
-	goto	u1621
-	goto	u1620
-u1621:
-	goto	l6502
-u1620:
+	goto	u1531
+	goto	u1530
+u1531:
+	goto	l6427
+u1530:
 	line	299
 	
-l6494:	
+l6421:	
 ;MAIN.C: 299: id_clear(2, 5);
 	movlw	(05h)
 	movwf	(?_id_clear)
@@ -1374,53 +1336,37 @@ l6494:
 	fcall	_id_clear
 	line	300
 	
-l6496:	
+l6423:	
 ;MAIN.C: 300: setState(3, 0);
 	clrf	(?_setState)
 	clrf	(?_setState+1)
 	movlw	(03h)
 	fcall	_setState
-	line	301
-	
-l6498:	
-;MAIN.C: 301: tmp = 1;
-	clrf	(main@tmp)
-	incf	(main@tmp),f
-	line	306
-	
-l6500:	
-;MAIN.C: 306: beep2(0, 3);
-	movlw	(03h)
-	movwf	(?_beep2)
-	movlw	(0)
-	fcall	_beep2
-	line	308
-;MAIN.C: 308: }
-	goto	l4178
+	goto	l6415
 	line	309
 	
-l6502:	
+l6427:	
 ;MAIN.C: 309: else if (idop == 2 && idState == 0) {
 	movf	(main@idop),w
 	xorlw	02h
 	skipz
-	goto	u1631
-	goto	u1630
-u1631:
-	goto	l4178
-u1630:
+	goto	u1541
+	goto	u1540
+u1541:
+	goto	l4175
+u1540:
 	
-l6504:	
+l6429:	
 	movf	(main@idState),f
 	skipz
-	goto	u1641
-	goto	u1640
-u1641:
-	goto	l4178
-u1640:
+	goto	u1551
+	goto	u1550
+u1551:
+	goto	l4175
+u1550:
 	line	311
 	
-l6506:	
+l6431:	
 ;MAIN.C: 311: id_clear(3, 5);
 	movlw	(05h)
 	movwf	(?_id_clear)
@@ -1428,7 +1374,7 @@ l6506:
 	fcall	_id_clear
 	line	312
 	
-l6508:	
+l6433:	
 ;MAIN.C: 312: setState(5, 0);
 	clrf	(?_setState)
 	clrf	(?_setState+1)
@@ -1436,61 +1382,53 @@ l6508:
 	fcall	_setState
 	line	313
 	
-l6510:	
+l6435:	
 ;MAIN.C: 313: tmp = 2;
 	movlw	(02h)
 	movwf	(main@tmp)
-	line	318
-	
-l6512:	
-;MAIN.C: 318: beep2(1, 2);
-	movlw	(02h)
-	movwf	(?_beep2)
-	movlw	(01h)
-	fcall	_beep2
-	goto	l4178
+	goto	l4175
 	line	324
 	
-l6514:	
+l6437:	
 ;MAIN.C: 324: if (idState == 0) {
 	movf	(main@idState),f
 	skipz
-	goto	u1651
-	goto	u1650
-u1651:
-	goto	l6528
-u1650:
+	goto	u1561
+	goto	u1560
+u1561:
+	goto	l4175
+u1560:
 	line	331
 	
-l6516:	
+l6439:	
 ;MAIN.C: 331: if ( idop != 1) {
 	decf	(main@idop),w
 	skipnz
-	goto	u1661
-	goto	u1660
-u1661:
-	goto	l4178
-u1660:
+	goto	u1571
+	goto	u1570
+u1571:
+	goto	l4175
+u1570:
 	line	332
 	
-l6518:	
+l6441:	
 ;MAIN.C: 332: tmp++;
 	incf	(main@tmp),f
 	line	334
 	
-l6520:	
+l6443:	
 ;MAIN.C: 334: if (tmp <= 5) {
 	movlw	(06h)
 	subwf	(main@tmp),w
 	skipnc
-	goto	u1671
-	goto	u1670
-u1671:
-	goto	l4178
-u1670:
+	goto	u1581
+	goto	u1580
+u1581:
+	goto	l4175
+u1580:
 	line	335
 	
-l6522:	
+l6445:	
 ;MAIN.C: 335: id_replate(tmp, keyID, buffTag);
 	movlw	(_keyID)&0ffh
 	movwf	(?_id_replate)
@@ -1500,72 +1438,55 @@ l6522:
 	fcall	_id_replate
 	line	336
 	
-l6524:	
+l6447:	
 ;MAIN.C: 336: timeTick = 0;
 	bcf	status, 5	;RP0=0, select bank0
 	clrf	(_timeTick)
 	clrf	(_timeTick+1)
-	line	341
-	
-l6526:	
-;MAIN.C: 341: beep2(1, 2);
-	movlw	(02h)
-	movwf	(?_beep2)
-	movlw	(01h)
-	fcall	_beep2
-	goto	l4178
-	line	353
-	
-l6528:	
-;MAIN.C: 353: beep2(0, 1);
-	clrf	(?_beep2)
-	incf	(?_beep2),f
-	movlw	(0)
-	fcall	_beep2
-	goto	l4178
+	goto	l4175
 	line	359
 	
-l6530:	
+l6449:	
 ;MAIN.C: 359: if (idState == 0) {
 	movf	(main@idState),f
 	skipz
-	goto	u1681
-	goto	u1680
-u1681:
-	goto	l6544
-u1680:
+	goto	u1591
+	goto	u1590
+u1591:
+	goto	l4175
+u1590:
 	line	360
 	
-l6532:	
+l6451:	
 ;MAIN.C: 360: if ( idop > 2) {
 	movlw	(03h)
 	subwf	(main@idop),w
 	skipc
-	goto	u1691
-	goto	u1690
-u1691:
-	goto	l4178
-u1690:
+	goto	u1601
+	goto	u1600
+u1601:
+	goto	l4175
+u1600:
 	line	361
 	
-l6534:	
+l6453:	
 ;MAIN.C: 361: tmp++;
 	incf	(main@tmp),f
 	line	363
 	
-l6536:	
+l6455:	
 ;MAIN.C: 363: if (tmp <= 5) {
 	movlw	(06h)
 	subwf	(main@tmp),w
 	skipnc
-	goto	u1701
-	goto	u1700
-u1701:
-	goto	l4178
-u1700:
+	goto	u1611
+	goto	u1610
+u1611:
+	goto	l4175
+u1610:
 	line	364
 	
-l6538:	
+l6457:	
 ;MAIN.C: 364: id_replate(tmp, keyID, buffTag);
 	movlw	(_keyID)&0ffh
 	movwf	(?_id_replate)
@@ -1573,34 +1494,10 @@ l6538:
 	movwf	(0+?_id_replate+01h)
 	movf	(main@tmp),w
 	fcall	_id_replate
-	line	365
-	
-l6540:	
-;MAIN.C: 365: timeTick = 0;
-	bcf	status, 5	;RP0=0, select bank0
-	clrf	(_timeTick)
-	clrf	(_timeTick+1)
-	line	371
-	
-l6542:	
-;MAIN.C: 371: beep2(1, 2);
-	movlw	(02h)
-	movwf	(?_beep2)
-	movlw	(01h)
-	fcall	_beep2
-	goto	l4178
-	line	382
-	
-l6544:	
-;MAIN.C: 382: beep2(0, 1);
-	clrf	(?_beep2)
-	incf	(?_beep2),f
-	movlw	(0)
-	fcall	_beep2
-	goto	l4178
+	goto	l6447
 	line	268
 	
-l6548:	
+l6463:	
 	movf	(_mtState),w
 	; Switch size 1, requested type "space"
 ; Number of cases is 6, Range of values is 0 to 6
@@ -1618,62 +1515,61 @@ l6548:
 	movlw	7
 	subwf	fsr,w
 skipnc
-goto l4178
-movlw high(S6618)
+goto l4175
+movlw high(S6529)
 movwf pclath
-	movlw low(S6618)
+	movlw low(S6529)
 	addwf fsr,w
 	movwf pc
 psect	swtext1,local,class=CONST,delta=2
 global __pswtext1
 __pswtext1:
-S6618:
-	ljmp	l4178
-	ljmp	l6474
-	ljmp	l6474
-	ljmp	l6514
-	ljmp	l4178
-	ljmp	l6530
-	ljmp	l6490
+S6529:
+	ljmp	l4175
+	ljmp	l6403
+	ljmp	l6403
+	ljmp	l6437
+	ljmp	l4175
+	ljmp	l6449
+	ljmp	l6417
 psect	maintext
 
 	line	387
 	
-l4178:	
+l4175:	
 	line	389
 ;MAIN.C: 389: idState = 1;
-	bcf	status, 5	;RP0=0, select bank0
 	clrf	(main@idState)
 	incf	(main@idState),f
 	line	390
 	
-l6550:	
+l6465:	
 ;MAIN.C: 390: _delay((unsigned long)((61)*(8000000/4000.0)));
 	opt asmopt_off
 movlw	159
 movwf	((??_main+0)+0+1),f
 	movlw	111
 movwf	((??_main+0)+0),f
-u1767:
+u1667:
 	decfsz	((??_main+0)+0),f
-	goto	u1767
+	goto	u1667
 	decfsz	((??_main+0)+0+1),f
-	goto	u1767
+	goto	u1667
 	nop2
 opt asmopt_on
 
 	line	391
 ;MAIN.C: 391: }
-	goto	l6556
+	goto	l6471
 	line	393
 	
-l6552:	
+l6467:	
 ;MAIN.C: 392: else {
 ;MAIN.C: 393: idState = 0;
 	clrf	(main@idState)
 	line	394
 	
-l6554:	
+l6469:	
 ;MAIN.C: 394: _delay((unsigned long)((150)*(8000000/4000.0)));
 	opt asmopt_off
 movlw  2
@@ -1682,60 +1578,60 @@ movlw	134
 movwf	((??_main+0)+0+1),f
 	movlw	153
 movwf	((??_main+0)+0),f
-u1777:
+u1677:
 	decfsz	((??_main+0)+0),f
-	goto	u1777
+	goto	u1677
 	decfsz	((??_main+0)+0+1),f
-	goto	u1777
+	goto	u1677
 	decfsz	((??_main+0)+0+2),f
-	goto	u1777
+	goto	u1677
 opt asmopt_on
 
 	line	399
 	
-l6556:	
+l6471:	
 ;MAIN.C: 395: }
 ;MAIN.C: 399: if ((timeOut != 0) && ( timeTick > timeOut)) {
 	bcf	status, 5	;RP0=0, select bank0
 	movf	(_timeOut+1),w
 	iorwf	(_timeOut),w
 	skipnz
-	goto	u1711
-	goto	u1710
-u1711:
-	goto	l6572
-u1710:
+	goto	u1621
+	goto	u1620
+u1621:
+	goto	l6487
+u1620:
 	
-l6558:	
+l6473:	
 	movf	(_timeTick+1),w
 	subwf	(_timeOut+1),w
 	skipz
-	goto	u1725
+	goto	u1635
 	movf	(_timeTick),w
 	subwf	(_timeOut),w
-u1725:
+u1635:
 	skipnc
-	goto	u1721
-	goto	u1720
-u1721:
-	goto	l6572
-u1720:
-	goto	l6570
+	goto	u1631
+	goto	u1630
+u1631:
+	goto	l6487
+u1630:
+	goto	l6485
 	line	404
 	
-l6562:	
-;MAIN.C: 404: setState(2, 42);
-	movlw	02Ah
+l6477:	
+;MAIN.C: 404: setState(2, 60);
+	movlw	03Ch
 	movwf	(?_setState)
 	clrf	(?_setState+1)
 	movlw	(02h)
 	fcall	_setState
 	line	406
 ;MAIN.C: 406: break;
-	goto	l6572
+	goto	l6487
 	line	408
 	
-l6564:	
+l6479:	
 ;MAIN.C: 408: setState(6, 7);
 	movlw	07h
 	movwf	(?_setState)
@@ -1744,10 +1640,10 @@ l6564:
 	fcall	_setState
 	line	409
 ;MAIN.C: 409: break;
-	goto	l6572
+	goto	l6487
 	line	411
 	
-l6566:	
+l6481:	
 ;MAIN.C: 411: setState(2, 0);
 	clrf	(?_setState)
 	clrf	(?_setState+1)
@@ -1755,10 +1651,10 @@ l6566:
 	fcall	_setState
 	line	414
 ;MAIN.C: 414: break;
-	goto	l6572
+	goto	l6487
 	line	401
 	
-l6570:	
+l6485:	
 	movf	(_mtState),w
 	; Switch size 1, requested type "space"
 ; Number of cases is 3, Range of values is 1 to 6
@@ -1772,71 +1668,45 @@ l6570:
 	opt asmopt_off
 	xorlw	1^0	; case 1
 	skipnz
-	goto	l6562
+	goto	l6477
 	xorlw	2^1	; case 2
 	skipnz
-	goto	l6564
+	goto	l6479
 	xorlw	6^2	; case 6
 	skipnz
-	goto	l6566
-	goto	l6572
+	goto	l6481
+	goto	l6487
 	opt asmopt_on
 
 	line	420
 	
-l6572:	
+l6487:	
 ;MAIN.C: 417: }
 ;MAIN.C: 420: if (mtState == 0) RA3 = 1;
 	movf	(_mtState),f
 	skipz
-	goto	u1731
-	goto	u1730
-u1731:
-	goto	l4203
-u1730:
+	goto	u1641
+	goto	u1640
+u1641:
+	goto	l4200
+u1640:
 	
-l6574:	
+l6489:	
 	bsf	(43/8),(43)&7
-	goto	l6576
+	goto	l6491
 	line	421
 	
-l4203:	
+l4200:	
 ;MAIN.C: 421: else RA3 = 0;
 	bcf	(43/8),(43)&7
-	line	430
-	
-l6576:	
-;MAIN.C: 430: if (mtState == 2) {
-	movf	(_mtState),w
-	xorlw	02h
-	skipz
-	goto	u1741
-	goto	u1740
-u1741:
-	goto	l4205
-u1740:
-	line	432
-	
-l6578:	
-;MAIN.C: 432: RC0 = 1;
-	bsf	(56/8),(56)&7
-	line	433
-;MAIN.C: 433: } else {
-	goto	l6580
-	
-l4205:	
-	line	434
-;MAIN.C: 434: RC0 = 0;
-	bcf	(56/8),(56)&7
 	line	471
 	
-l6580:	
-;MAIN.C: 435: };
+l6491:	
 ;MAIN.C: 471: timeTick++;
 	incf	(_timeTick),f
 	skipnz
 	incf	(_timeTick+1),f
-	goto	l6468
+	goto	l6397
 	global	start
 	ljmp	start
 	opt stack 0
@@ -1848,9 +1718,9 @@ GLOBAL	__end_of_main
 
 	signat	_main,88
 	global	_id_clear
-psect	text484,local,class=CODE,delta=2
-global __ptext484
-__ptext484:
+psect	text437,local,class=CODE,delta=2
+global __ptext437
+__ptext437:
 
 ;; *************** function _id_clear *****************
 ;; Defined at:
@@ -1883,7 +1753,7 @@ __ptext484:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text484
+psect	text437
 	file	"MAIN.C"
 	line	181
 	global	__size_of_id_clear
@@ -1896,7 +1766,7 @@ _id_clear:
 	line	182
 	movwf	(id_clear@idMin)
 	
-l6428:	
+l6357:	
 ;MAIN.C: 182: unsigned char tmp[5] = {0xff, 0xff, 0xff, 0xff, 0xff};
 	movlw	(id_clear@tmp)&0ffh
 	movwf	fsr0
@@ -1916,10 +1786,10 @@ l6428:
 	movf	(id_clear@F1097)+4,w
 	movwf	indf
 	line	183
-	goto	l6434
+	goto	l6363
 	line	184
 	
-l6430:	
+l6359:	
 ;MAIN.C: 184: id_replate(idMin, tmp, buffTag);
 	movlw	(id_clear@tmp)&0ffh
 	movwf	(?_id_replate)
@@ -1929,22 +1799,22 @@ l6430:
 	fcall	_id_replate
 	line	183
 	
-l6432:	
+l6361:	
 	bcf	status, 5	;RP0=0, select bank0
 	incf	(id_clear@idMin),f
 	
-l6434:	
+l6363:	
 	movf	(id_clear@idMin),w
 	subwf	(id_clear@idMax),w
 	skipnc
-	goto	u1551
-	goto	u1550
-u1551:
-	goto	l6430
-u1550:
+	goto	u1461
+	goto	u1460
+u1461:
+	goto	l6359
+u1460:
 	line	185
 	
-l4148:	
+l4145:	
 	return
 	opt stack 0
 GLOBAL	__end_of_id_clear
@@ -1953,9 +1823,9 @@ GLOBAL	__end_of_id_clear
 
 	signat	_id_clear,8312
 	global	_id_replate
-psect	text485,local,class=CODE,delta=2
-global __ptext485
-__ptext485:
+psect	text438,local,class=CODE,delta=2
+global __ptext438
+__ptext438:
 
 ;; *************** function _id_replate *****************
 ;; Defined at:
@@ -1992,7 +1862,7 @@ __ptext485:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text485
+psect	text438
 	file	"MAIN.C"
 	line	167
 	global	__size_of_id_replate
@@ -2005,7 +1875,7 @@ _id_replate:
 	movwf	(id_replate@id)
 	line	168
 	
-l6414:	
+l6343:	
 ;MAIN.C: 168: id = (id - 1) * 5;
 	movlw	(05h)
 	movwf	(?___bmul)
@@ -2015,7 +1885,7 @@ l6414:
 	movwf	(id_replate@id)
 	line	171
 	
-l6416:	
+l6345:	
 ;MAIN.C: 169: {
 ;MAIN.C: 170: {
 ;MAIN.C: 171: *(buff + id) = *Cont;
@@ -2033,7 +1903,7 @@ l6416:
 	movwf	indf
 	line	172
 	
-l6418:	
+l6347:	
 ;MAIN.C: 172: *(buff + 1 + id) = *(Cont + 1);
 	movf	(id_replate@Cont),w
 	addlw	01h
@@ -2050,7 +1920,7 @@ l6418:
 	movwf	indf
 	line	173
 	
-l6420:	
+l6349:	
 ;MAIN.C: 173: *(buff + 2 + id) = *(Cont + 2);
 	movf	(id_replate@Cont),w
 	addlw	02h
@@ -2067,7 +1937,7 @@ l6420:
 	movwf	indf
 	line	174
 	
-l6422:	
+l6351:	
 ;MAIN.C: 174: *(buff + 3 + id) = *(Cont + 3);
 	movf	(id_replate@Cont),w
 	addlw	03h
@@ -2084,7 +1954,7 @@ l6422:
 	movwf	indf
 	line	175
 	
-l6424:	
+l6353:	
 ;MAIN.C: 175: *(buff + 4 + id) = *(Cont + 4);
 	movf	(id_replate@Cont),w
 	addlw	04h
@@ -2101,7 +1971,7 @@ l6424:
 	movwf	indf
 	line	179
 	
-l6426:	
+l6355:	
 ;MAIN.C: 176: }
 ;MAIN.C: 177: }
 ;MAIN.C: 179: eepromWriteBlock(0x06, buffTag, 25);
@@ -2113,7 +1983,7 @@ l6426:
 	fcall	_eepromWriteBlock
 	line	180
 	
-l4140:	
+l4137:	
 	return
 	opt stack 0
 GLOBAL	__end_of_id_replate
@@ -2121,127 +1991,10 @@ GLOBAL	__end_of_id_replate
 ;; =============== function _id_replate ends ============
 
 	signat	_id_replate,12408
-	global	_beep2
-psect	text486,local,class=CODE,delta=2
-global __ptext486
-__ptext486:
-
-;; *************** function _beep2 *****************
-;; Defined at:
-;;		line 187 in file "MAIN.C"
-;; Parameters:    Size  Location     Type
-;;  sel             1    wreg     unsigned char 
-;;  rep             1    5[COMMON] unsigned char 
-;; Auto vars:     Size  Location     Type
-;;  sel             1    6[COMMON] unsigned char 
-;; Return value:  Size  Location     Type
-;;		None               void
-;; Registers used:
-;;		wreg, status,2, status,0, pclath, cstack
-;; Tracked objects:
-;;		On entry : 20/0
-;;		On exit  : 0/0
-;;		Unchanged: 0/0
-;; Data sizes:     COMMON   BANK0   BANK1
-;;      Params:         1       0       0
-;;      Locals:         1       0       0
-;;      Temps:          0       0       0
-;;      Totals:         2       0       0
-;;Total ram usage:        2 bytes
-;; Hardware stack levels used:    1
-;; Hardware stack levels required when called:    2
-;; This function calls:
-;;		_delay_x10ms
-;; This function is called by:
-;;		_main
-;; This function uses a non-reentrant model
-;;
-psect	text486
-	file	"MAIN.C"
-	line	187
-	global	__size_of_beep2
-	__size_of_beep2	equ	__end_of_beep2-_beep2
-	
-_beep2:	
-	opt	stack 5
-; Regs used in _beep2: [wreg+status,2+status,0+pclath+cstack]
-;beep2@sel stored from wreg
-	movwf	(beep2@sel)
-	line	188
-	
-l6396:	
-;MAIN.C: 188: while (rep--) {
-	goto	l6412
-	
-l4152:	
-	line	189
-;MAIN.C: 189: RC0 = 1; if (sel)RA3 = 1;
-	bcf	status, 5	;RP0=0, select bank0
-	bsf	(56/8),(56)&7
-	
-l6398:	
-	movf	(beep2@sel),w
-	skipz
-	goto	u1520
-	goto	l6402
-u1520:
-	
-l6400:	
-	bsf	(43/8),(43)&7
-	line	190
-	
-l6402:	
-;MAIN.C: 190: delay_x10ms(20);
-	movlw	(014h)
-	fcall	_delay_x10ms
-	line	191
-	
-l6404:	
-;MAIN.C: 191: RC0 = 0; if (sel)RA3 = 0;
-	bcf	status, 5	;RP0=0, select bank0
-	bcf	(56/8),(56)&7
-	
-l6406:	
-	movf	(beep2@sel),w
-	skipz
-	goto	u1530
-	goto	l6410
-u1530:
-	
-l6408:	
-	bcf	(43/8),(43)&7
-	line	192
-	
-l6410:	
-;MAIN.C: 192: delay_x10ms(20);
-	movlw	(014h)
-	fcall	_delay_x10ms
-	line	188
-	
-l6412:	
-	decf	(beep2@rep),f
-	movf	((beep2@rep)),w
-	xorlw	0FFh
-	skipz
-	goto	u1541
-	goto	u1540
-u1541:
-	goto	l4152
-u1540:
-	line	194
-	
-l4156:	
-	return
-	opt stack 0
-GLOBAL	__end_of_beep2
-	__end_of_beep2:
-;; =============== function _beep2 ends ============
-
-	signat	_beep2,8312
 	global	_eepromWriteBlock
-psect	text487,local,class=CODE,delta=2
-global __ptext487
-__ptext487:
+psect	text439,local,class=CODE,delta=2
+global __ptext439
+__ptext439:
 
 ;; *************** function _eepromWriteBlock *****************
 ;; Defined at:
@@ -2276,7 +2029,7 @@ __ptext487:
 ;;		_id_replate
 ;; This function uses a non-reentrant model
 ;;
-psect	text487
+psect	text439
 	file	"ms82_eeprom.c"
 	line	43
 	global	__size_of_eepromWriteBlock
@@ -2289,14 +2042,14 @@ _eepromWriteBlock:
 	line	45
 	movwf	(eepromWriteBlock@addStart)
 	
-l6388:	
+l6335:	
 ;ms82_eeprom.c: 44: unsigned char i;
 ;ms82_eeprom.c: 45: for(i=0;i<len;i++){
 	clrf	(eepromWriteBlock@i)
-	goto	l6394
+	goto	l6341
 	line	46
 	
-l6390:	
+l6337:	
 ;ms82_eeprom.c: 46: eepromWriteByte(addStart+i,buff[i]);
 	movf	(eepromWriteBlock@i),w
 	addwf	(eepromWriteBlock@buff),w
@@ -2311,18 +2064,18 @@ l6390:
 	fcall	_eepromWriteByte
 	line	45
 	
-l6392:	
+l6339:	
 	incf	(eepromWriteBlock@i),f
 	
-l6394:	
+l6341:	
 	movf	(eepromWriteBlock@len),w
 	subwf	(eepromWriteBlock@i),w
 	skipc
-	goto	u1511
-	goto	u1510
-u1511:
-	goto	l6390
-u1510:
+	goto	u1451
+	goto	u1450
+u1451:
+	goto	l6337
+u1450:
 	line	49
 	
 l1609:	
@@ -2334,9 +2087,9 @@ GLOBAL	__end_of_eepromWriteBlock
 
 	signat	_eepromWriteBlock,12408
 	global	_id_search
-psect	text488,local,class=CODE,delta=2
-global __ptext488
-__ptext488:
+psect	text440,local,class=CODE,delta=2
+global __ptext440
+__ptext440:
 
 ;; *************** function _id_search *****************
 ;; Defined at:
@@ -2373,7 +2126,7 @@ __ptext488:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text488
+psect	text440
 	file	"MAIN.C"
 	line	159
 	global	__size_of_id_search
@@ -2386,13 +2139,13 @@ _id_search:
 	line	161
 	movwf	(id_search@id_input)
 	
-l6368:	
+l6315:	
 ;MAIN.C: 160: unsigned char i;
 ;MAIN.C: 161: for (i = 0; i < 21; i += 5) {
 	clrf	(id_search@i)
 	line	162
 	
-l6374:	
+l6321:	
 ;MAIN.C: 162: if (comArr(id_input, buff + i, 5, 5))
 	movf	(id_search@i),w
 	addwf	(id_search@buff),w
@@ -2405,14 +2158,14 @@ l6374:
 	fcall	_comArr
 	xorlw	0
 	skipnz
-	goto	u1491
-	goto	u1490
-u1491:
-	goto	l6380
-u1490:
+	goto	u1431
+	goto	u1430
+u1431:
+	goto	l6327
+u1430:
 	line	163
 	
-l6376:	
+l6323:	
 ;MAIN.C: 163: return i / 5 + 1;
 	movlw	(05h)
 	movwf	(?___lbdiv)
@@ -2420,31 +2173,31 @@ l6376:
 	fcall	___lbdiv
 	movwf	(??_id_search+0)+0
 	incf	0+(??_id_search+0)+0,w
-	goto	l4137
+	goto	l4134
 	line	161
 	
-l6380:	
+l6327:	
 	movlw	(05h)
 	addwf	(id_search@i),f
 	
-l6382:	
+l6329:	
 	movlw	(015h)
 	subwf	(id_search@i),w
 	skipc
-	goto	u1501
-	goto	u1500
-u1501:
-	goto	l6374
-u1500:
+	goto	u1441
+	goto	u1440
+u1441:
+	goto	l6321
+u1440:
 	line	165
 	
-l6384:	
+l6331:	
 ;MAIN.C: 164: }
 ;MAIN.C: 165: return 255;
 	movlw	(0FFh)
 	line	166
 	
-l4137:	
+l4134:	
 	return
 	opt stack 0
 GLOBAL	__end_of_id_search
@@ -2452,99 +2205,10 @@ GLOBAL	__end_of_id_search
 ;; =============== function _id_search ends ============
 
 	signat	_id_search,8313
-	global	_delay_x10ms
-psect	text489,local,class=CODE,delta=2
-global __ptext489
-__ptext489:
-
-;; *************** function _delay_x10ms *****************
-;; Defined at:
-;;		line 59 in file "MAIN.C"
-;; Parameters:    Size  Location     Type
-;;  t               1    wreg     unsigned char 
-;; Auto vars:     Size  Location     Type
-;;  t               1    4[COMMON] unsigned char 
-;; Return value:  Size  Location     Type
-;;		None               void
-;; Registers used:
-;;		wreg, status,2, status,0
-;; Tracked objects:
-;;		On entry : 20/0
-;;		On exit  : 0/0
-;;		Unchanged: 0/0
-;; Data sizes:     COMMON   BANK0   BANK1
-;;      Params:         0       0       0
-;;      Locals:         1       0       0
-;;      Temps:          2       0       0
-;;      Totals:         3       0       0
-;;Total ram usage:        3 bytes
-;; Hardware stack levels used:    1
-;; Hardware stack levels required when called:    1
-;; This function calls:
-;;		Nothing
-;; This function is called by:
-;;		_beep2
-;; This function uses a non-reentrant model
-;;
-psect	text489
-	file	"MAIN.C"
-	line	59
-	global	__size_of_delay_x10ms
-	__size_of_delay_x10ms	equ	__end_of_delay_x10ms-_delay_x10ms
-	
-_delay_x10ms:	
-	opt	stack 5
-; Regs used in _delay_x10ms: [wreg+status,2+status,0]
-;delay_x10ms@t stored from wreg
-	movwf	(delay_x10ms@t)
-	line	60
-	
-l6362:	
-;MAIN.C: 60: while (t--)
-	goto	l6366
-	line	61
-	
-l6364:	
-;MAIN.C: 61: _delay((unsigned long)((10)*(8000000/4000.0)));
-	opt asmopt_off
-movlw	26
-movwf	((??_delay_x10ms+0)+0+1),f
-	movlw	248
-movwf	((??_delay_x10ms+0)+0),f
-u1787:
-	decfsz	((??_delay_x10ms+0)+0),f
-	goto	u1787
-	decfsz	((??_delay_x10ms+0)+0+1),f
-	goto	u1787
-	clrwdt
-opt asmopt_on
-
-	line	60
-	
-l6366:	
-	decf	(delay_x10ms@t),f
-	movf	((delay_x10ms@t)),w
-	xorlw	0FFh
-	skipz
-	goto	u1481
-	goto	u1480
-u1481:
-	goto	l6364
-u1480:
-	line	62
-	
-l4119:	
-	return
-	opt stack 0
-GLOBAL	__end_of_delay_x10ms
-	__end_of_delay_x10ms:
-;; =============== function _delay_x10ms ends ============
-
-	signat	_delay_x10ms,4216
 	global	_get_RFID
-psect	text490,local,class=CODE,delta=2
-global __ptext490
-__ptext490:
+psect	text441,local,class=CODE,delta=2
+global __ptext441
+__ptext441:
 
 ;; *************** function _get_RFID *****************
 ;; Defined at:
@@ -2584,7 +2248,7 @@ __ptext490:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text490
+psect	text441
 	file	"rfid125.c"
 	line	20
 	global	__size_of_get_RFID
@@ -2595,7 +2259,7 @@ _get_RFID:
 ; Regs used in _get_RFID: [wreg-fsr0h+status,2+status,0+pclath+cstack]
 	line	29
 	
-l6140:	
+l6093:	
 ;rfid125.c: 22: unsigned char RF_serial_55bits[11];
 ;rfid125.c: 23: unsigned int timeOutVal;
 ;rfid125.c: 24: unsigned char i,ii,j;
@@ -2605,13 +2269,13 @@ l6140:
 	clrf	(get_RFID@flag_RFID_syn)
 	line	32
 	
-l6142:	
+l6095:	
 ;rfid125.c: 32: i=16;
 	movlw	(010h)
 	movwf	(get_RFID@i)
 	line	35
 	
-l6144:	
+l6097:	
 ;rfid125.c: 34: {
 ;rfid125.c: 35: timeOutVal=timerOut(1,150);
 	movlw	096h
@@ -2625,23 +2289,23 @@ l6144:
 	movwf	(get_RFID@timeOutVal)
 	line	36
 	
-l6146:	
+l6099:	
 ;rfid125.c: 36: if(timeOutVal==0) return 0;
 	movf	((get_RFID@timeOutVal+1)),w
 	iorwf	((get_RFID@timeOutVal)),w
 	skipz
-	goto	u1051
-	goto	u1050
-u1051:
-	goto	l6152
-u1050:
+	goto	u1001
+	goto	u1000
+u1001:
+	goto	l6105
+u1000:
 	
-l6148:	
+l6101:	
 	movlw	(0)
 	goto	l2455
 	line	38
 	
-l6152:	
+l6105:	
 ;rfid125.c: 38: timeOutVal=timerOut(0,150);
 	movlw	096h
 	movwf	(?_timerOut)
@@ -2654,25 +2318,25 @@ l6152:
 	movwf	(get_RFID@timeOutVal)
 	line	39
 	
-l6154:	
+l6107:	
 ;rfid125.c: 39: if(timeOutVal==0) return 0;
 	movf	((get_RFID@timeOutVal+1)),w
 	iorwf	((get_RFID@timeOutVal)),w
 	skipz
-	goto	u1061
-	goto	u1060
-u1061:
-	goto	l6160
-u1060:
-	goto	l6148
+	goto	u1011
+	goto	u1010
+u1011:
+	goto	l6113
+u1010:
+	goto	l6101
 	line	41
 	
-l6160:	
+l6113:	
 ;rfid125.c: 41: i--;
 	decf	(get_RFID@i),f
 	line	43
 	
-l6162:	
+l6115:	
 ;rfid125.c: 42: }
 ;rfid125.c: 43: while(timeOutVal<72 && i>0);
 	movlw	high(048h)
@@ -2681,20 +2345,20 @@ l6162:
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipnc
-	goto	u1071
-	goto	u1070
-u1071:
+	goto	u1021
+	goto	u1020
+u1021:
 	goto	l2459
-u1070:
+u1020:
 	
-l6164:	
+l6117:	
 	movf	(get_RFID@i),f
 	skipz
-	goto	u1081
-	goto	u1080
-u1081:
-	goto	l6144
-u1080:
+	goto	u1031
+	goto	u1030
+u1031:
+	goto	l6097
+u1030:
 	
 l2459:	
 	line	44
@@ -2703,21 +2367,21 @@ l2459:
 	incf	(get_RFID@flag_RFID_last),f
 	line	45
 	
-l6166:	
+l6119:	
 ;rfid125.c: 45: i = 0;
 	clrf	(get_RFID@i)
 	line	46
 ;rfid125.c: 46: while(i<64)
-	goto	l6232
+	goto	l6185
 	line	48
 	
-l6168:	
+l6121:	
 ;rfid125.c: 47: {
 ;rfid125.c: 48: for(ii=0;ii<9;ii++)
 	clrf	(get_RFID@ii)
 	line	50
 	
-l6174:	
+l6127:	
 ;rfid125.c: 49: {
 ;rfid125.c: 50: timeOutVal=timerOut(flag_RFID_last,150);
 	movlw	096h
@@ -2731,79 +2395,79 @@ l6174:
 	movwf	(get_RFID@timeOutVal)
 	line	51
 	
-l6176:	
+l6129:	
 ;rfid125.c: 51: if(timeOutVal==0) return 0;
 	movf	((get_RFID@timeOutVal+1)),w
 	iorwf	((get_RFID@timeOutVal)),w
 	skipz
-	goto	u1091
-	goto	u1090
-u1091:
-	goto	l6182
-u1090:
-	goto	l6148
+	goto	u1041
+	goto	u1040
+u1041:
+	goto	l6135
+u1040:
+	goto	l6101
 	line	54
 	
-l6182:	
+l6135:	
 ;rfid125.c: 53: if(0==flag_RFID_last && timeOutVal<=72 ||
 ;rfid125.c: 54: 1==flag_RFID_last && timeOutVal>72)
 	movf	(get_RFID@flag_RFID_last),f
 	skipz
-	goto	u1101
-	goto	u1100
-u1101:
-	goto	l6186
-u1100:
+	goto	u1051
+	goto	u1050
+u1051:
+	goto	l6139
+u1050:
 	
-l6184:	
+l6137:	
 	movlw	high(049h)
 	subwf	(get_RFID@timeOutVal+1),w
 	movlw	low(049h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipc
-	goto	u1111
-	goto	u1110
-u1111:
-	goto	l6190
-u1110:
+	goto	u1061
+	goto	u1060
+u1061:
+	goto	l6143
+u1060:
 	
-l6186:	
+l6139:	
 	decf	(get_RFID@flag_RFID_last),w
 	skipz
-	goto	u1121
-	goto	u1120
-u1121:
-	goto	l6204
-u1120:
+	goto	u1071
+	goto	u1070
+u1071:
+	goto	l6157
+u1070:
 	
-l6188:	
+l6141:	
 	movlw	high(049h)
 	subwf	(get_RFID@timeOutVal+1),w
 	movlw	low(049h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipc
-	goto	u1131
-	goto	u1130
-u1131:
-	goto	l6204
-u1130:
+	goto	u1081
+	goto	u1080
+u1081:
+	goto	l6157
+u1080:
 	line	56
 	
-l6190:	
+l6143:	
 ;rfid125.c: 55: {
 ;rfid125.c: 56: if(!flag_RFID_last)
 	movf	(get_RFID@flag_RFID_last),f
 	skipz
-	goto	u1141
-	goto	u1140
-u1141:
-	goto	l6200
-u1140:
+	goto	u1091
+	goto	u1090
+u1091:
+	goto	l6153
+u1090:
 	line	58
 	
-l6192:	
+l6145:	
 ;rfid125.c: 57: {
 ;rfid125.c: 58: timeOutVal=timerOut(1,72);
 	movlw	048h
@@ -2817,92 +2481,92 @@ l6192:
 	movwf	(get_RFID@timeOutVal)
 	line	59
 	
-l6194:	
+l6147:	
 ;rfid125.c: 59: if(timeOutVal==0) return 0;
 	movf	((get_RFID@timeOutVal+1)),w
 	iorwf	((get_RFID@timeOutVal)),w
 	skipz
-	goto	u1151
-	goto	u1150
-u1151:
-	goto	l6200
-u1150:
-	goto	l6148
+	goto	u1101
+	goto	u1100
+u1101:
+	goto	l6153
+u1100:
+	goto	l6101
 	line	61
 	
-l6200:	
+l6153:	
 ;rfid125.c: 60: }
 ;rfid125.c: 61: flag_RFID_last = 0;
 	clrf	(get_RFID@flag_RFID_last)
 	line	62
 	
-l6202:	
+l6155:	
 ;rfid125.c: 62: i++;
 	incf	(get_RFID@i),f
 	line	63
 ;rfid125.c: 63: }
-	goto	l6224
+	goto	l6177
 	line	66
 	
-l6204:	
+l6157:	
 ;rfid125.c: 64: else
 ;rfid125.c: 65: if(0==flag_RFID_last && timeOutVal>72 ||
 ;rfid125.c: 66: 1==flag_RFID_last && timeOutVal<=72)
 	movf	(get_RFID@flag_RFID_last),f
 	skipz
-	goto	u1161
-	goto	u1160
-u1161:
-	goto	l6208
-u1160:
+	goto	u1111
+	goto	u1110
+u1111:
+	goto	l6161
+u1110:
 	
-l6206:	
+l6159:	
 	movlw	high(049h)
 	subwf	(get_RFID@timeOutVal+1),w
 	movlw	low(049h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipnc
-	goto	u1171
-	goto	u1170
-u1171:
-	goto	l6212
-u1170:
+	goto	u1121
+	goto	u1120
+u1121:
+	goto	l6165
+u1120:
 	
-l6208:	
+l6161:	
 	decf	(get_RFID@flag_RFID_last),w
 	skipz
-	goto	u1181
-	goto	u1180
-u1181:
-	goto	l6224
-u1180:
+	goto	u1131
+	goto	u1130
+u1131:
+	goto	l6177
+u1130:
 	
-l6210:	
+l6163:	
 	movlw	high(049h)
 	subwf	(get_RFID@timeOutVal+1),w
 	movlw	low(049h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipnc
-	goto	u1191
-	goto	u1190
-u1191:
-	goto	l6224
-u1190:
+	goto	u1141
+	goto	u1140
+u1141:
+	goto	l6177
+u1140:
 	line	68
 	
-l6212:	
+l6165:	
 ;rfid125.c: 67: {
 ;rfid125.c: 68: if(flag_RFID_last)
 	movf	(get_RFID@flag_RFID_last),w
 	skipz
-	goto	u1200
+	goto	u1150
 	goto	l2478
-u1200:
+u1150:
 	line	70
 	
-l6214:	
+l6167:	
 ;rfid125.c: 69: {
 ;rfid125.c: 70: timeOutVal=timerOut(0,72);
 	movlw	048h
@@ -2916,17 +2580,17 @@ l6214:
 	movwf	(get_RFID@timeOutVal)
 	line	71
 	
-l6216:	
+l6169:	
 ;rfid125.c: 71: if(timeOutVal==0) return 0;
 	movf	((get_RFID@timeOutVal+1)),w
 	iorwf	((get_RFID@timeOutVal)),w
 	skipz
-	goto	u1211
-	goto	u1210
-u1211:
+	goto	u1161
+	goto	u1160
+u1161:
 	goto	l2478
-u1210:
-	goto	l6148
+u1160:
+	goto	l6101
 	line	72
 	
 l2478:	
@@ -2937,84 +2601,84 @@ l2478:
 	incf	(get_RFID@flag_RFID_last),f
 	line	74
 	
-l6222:	
+l6175:	
 ;rfid125.c: 74: i++;
 	incf	(get_RFID@i),f
 	line	76
 ;rfid125.c: 76: break;
-	goto	l6228
+	goto	l6181
 	line	48
 	
-l6224:	
+l6177:	
 	incf	(get_RFID@ii),f
 	
-l6226:	
+l6179:	
 	movlw	(09h)
 	subwf	(get_RFID@ii),w
 	skipc
-	goto	u1221
-	goto	u1220
-u1221:
-	goto	l6174
-u1220:
+	goto	u1171
+	goto	u1170
+u1171:
+	goto	l6127
+u1170:
 	line	80
 	
-l6228:	
+l6181:	
 ;rfid125.c: 77: }
 ;rfid125.c: 79: }
 ;rfid125.c: 80: if(9==ii)
 	movf	(get_RFID@ii),w
 	xorlw	09h
 	skipz
-	goto	u1231
-	goto	u1230
-u1231:
-	goto	l6232
-u1230:
+	goto	u1181
+	goto	u1180
+u1181:
+	goto	l6185
+u1180:
 	line	82
 	
-l6230:	
+l6183:	
 ;rfid125.c: 81: {
 ;rfid125.c: 82: flag_RFID_syn = 1;
 	clrf	(get_RFID@flag_RFID_syn)
 	incf	(get_RFID@flag_RFID_syn),f
 	line	83
 ;rfid125.c: 83: break;
-	goto	l6234
+	goto	l6187
 	line	46
 	
-l6232:	
+l6185:	
 	movlw	(040h)
 	subwf	(get_RFID@i),w
 	skipc
-	goto	u1241
-	goto	u1240
-u1241:
-	goto	l6168
-u1240:
+	goto	u1191
+	goto	u1190
+u1191:
+	goto	l6121
+u1190:
 	line	87
 	
-l6234:	
+l6187:	
 ;rfid125.c: 84: }
 ;rfid125.c: 85: }
 ;rfid125.c: 87: if(!flag_RFID_syn)
 	movf	(get_RFID@flag_RFID_syn),f
 	skipz
-	goto	u1251
-	goto	u1250
-u1251:
-	goto	l6240
-u1250:
-	goto	l6148
+	goto	u1201
+	goto	u1200
+u1201:
+	goto	l6193
+u1200:
+	goto	l6101
 	line	91
 	
-l6240:	
+l6193:	
 ;rfid125.c: 90: }
 ;rfid125.c: 91: for(ii=0;ii<55;ii++)
 	clrf	(get_RFID@ii)
 	line	93
 	
-l6246:	
+l6199:	
 ;rfid125.c: 92: {
 ;rfid125.c: 93: i = ii/5;
 	movlw	(05h)
@@ -3024,7 +2688,7 @@ l6246:
 	movwf	(get_RFID@i)
 	line	94
 	
-l6248:	
+l6201:	
 ;rfid125.c: 94: timeOutVal=timerOut(flag_RFID_last,150);
 	movlw	096h
 	movwf	(?_timerOut)
@@ -3037,79 +2701,79 @@ l6248:
 	movwf	(get_RFID@timeOutVal)
 	line	95
 	
-l6250:	
+l6203:	
 ;rfid125.c: 95: if(timeOutVal==0) return 0;
 	movf	((get_RFID@timeOutVal+1)),w
 	iorwf	((get_RFID@timeOutVal)),w
 	skipz
-	goto	u1261
-	goto	u1260
-u1261:
-	goto	l6256
-u1260:
-	goto	l6148
+	goto	u1211
+	goto	u1210
+u1211:
+	goto	l6209
+u1210:
+	goto	l6101
 	line	98
 	
-l6256:	
+l6209:	
 ;rfid125.c: 97: if(0==flag_RFID_last && timeOutVal<=72 ||
 ;rfid125.c: 98: 1==flag_RFID_last && timeOutVal>72)
 	movf	(get_RFID@flag_RFID_last),f
 	skipz
-	goto	u1271
-	goto	u1270
-u1271:
-	goto	l6260
-u1270:
+	goto	u1221
+	goto	u1220
+u1221:
+	goto	l6213
+u1220:
 	
-l6258:	
+l6211:	
 	movlw	high(049h)
 	subwf	(get_RFID@timeOutVal+1),w
 	movlw	low(049h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipc
-	goto	u1281
-	goto	u1280
-u1281:
-	goto	l6264
-u1280:
+	goto	u1231
+	goto	u1230
+u1231:
+	goto	l6217
+u1230:
 	
-l6260:	
+l6213:	
 	decf	(get_RFID@flag_RFID_last),w
 	skipz
-	goto	u1291
-	goto	u1290
-u1291:
-	goto	l6280
-u1290:
+	goto	u1241
+	goto	u1240
+u1241:
+	goto	l6233
+u1240:
 	
-l6262:	
+l6215:	
 	movlw	high(049h)
 	subwf	(get_RFID@timeOutVal+1),w
 	movlw	low(049h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipc
-	goto	u1301
-	goto	u1300
-u1301:
-	goto	l6280
-u1300:
+	goto	u1251
+	goto	u1250
+u1251:
+	goto	l6233
+u1250:
 	line	100
 	
-l6264:	
+l6217:	
 ;rfid125.c: 99: {
 ;rfid125.c: 100: if(!flag_RFID_last)
 	movf	(get_RFID@flag_RFID_last),f
 	skipz
-	goto	u1311
-	goto	u1310
-u1311:
-	goto	l6274
-u1310:
+	goto	u1261
+	goto	u1260
+u1261:
+	goto	l6227
+u1260:
 	line	102
 	
-l6266:	
+l6219:	
 ;rfid125.c: 101: {
 ;rfid125.c: 102: timeOutVal=timerOut(1,72);
 	movlw	048h
@@ -3123,26 +2787,26 @@ l6266:
 	movwf	(get_RFID@timeOutVal)
 	line	103
 	
-l6268:	
+l6221:	
 ;rfid125.c: 103: if(timeOutVal==0) return 0;
 	movf	((get_RFID@timeOutVal+1)),w
 	iorwf	((get_RFID@timeOutVal)),w
 	skipz
-	goto	u1321
-	goto	u1320
-u1321:
-	goto	l6274
-u1320:
-	goto	l6148
+	goto	u1271
+	goto	u1270
+u1271:
+	goto	l6227
+u1270:
+	goto	l6101
 	line	105
 	
-l6274:	
+l6227:	
 ;rfid125.c: 104: }
 ;rfid125.c: 105: flag_RFID_last = 0;
 	clrf	(get_RFID@flag_RFID_last)
 	line	106
 	
-l6276:	
+l6229:	
 ;rfid125.c: 106: RF_serial_55bits[i] <<= 1;
 	movf	(get_RFID@i),w
 	addlw	get_RFID@RF_serial_55bits&0ffh
@@ -3152,7 +2816,7 @@ l6276:
 	rlf	indf,f
 	line	107
 	
-l6278:	
+l6231:	
 ;rfid125.c: 107: RF_serial_55bits[i] |= 0x01;
 	movf	(get_RFID@i),w
 	addlw	get_RFID@RF_serial_55bits&0ffh
@@ -3160,68 +2824,68 @@ l6278:
 	bsf	indf+(0/8),(0)&7
 	line	108
 ;rfid125.c: 108: }
-	goto	l6300
+	goto	l6253
 	line	111
 	
-l6280:	
+l6233:	
 ;rfid125.c: 109: else
 ;rfid125.c: 110: if(0==flag_RFID_last && timeOutVal>72 ||
 ;rfid125.c: 111: 1==flag_RFID_last && timeOutVal<=72)
 	movf	(get_RFID@flag_RFID_last),f
 	skipz
-	goto	u1331
-	goto	u1330
-u1331:
-	goto	l6284
-u1330:
+	goto	u1281
+	goto	u1280
+u1281:
+	goto	l6237
+u1280:
 	
-l6282:	
+l6235:	
 	movlw	high(049h)
 	subwf	(get_RFID@timeOutVal+1),w
 	movlw	low(049h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipnc
-	goto	u1341
-	goto	u1340
-u1341:
-	goto	l6288
-u1340:
+	goto	u1291
+	goto	u1290
+u1291:
+	goto	l6241
+u1290:
 	
-l6284:	
+l6237:	
 	decf	(get_RFID@flag_RFID_last),w
 	skipz
-	goto	u1351
-	goto	u1350
-u1351:
-	goto	l6300
-u1350:
+	goto	u1301
+	goto	u1300
+u1301:
+	goto	l6253
+u1300:
 	
-l6286:	
+l6239:	
 	movlw	high(049h)
 	subwf	(get_RFID@timeOutVal+1),w
 	movlw	low(049h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipnc
-	goto	u1361
-	goto	u1360
-u1361:
-	goto	l6300
-u1360:
+	goto	u1311
+	goto	u1310
+u1311:
+	goto	l6253
+u1310:
 	line	113
 	
-l6288:	
+l6241:	
 ;rfid125.c: 112: {
 ;rfid125.c: 113: if(flag_RFID_last)
 	movf	(get_RFID@flag_RFID_last),w
 	skipz
-	goto	u1370
+	goto	u1320
 	goto	l2499
-u1370:
+u1320:
 	line	115
 	
-l6290:	
+l6243:	
 ;rfid125.c: 114: {
 ;rfid125.c: 115: timeOutVal=timerOut(0,150);
 	movlw	096h
@@ -3235,17 +2899,17 @@ l6290:
 	movwf	(get_RFID@timeOutVal)
 	line	116
 	
-l6292:	
+l6245:	
 ;rfid125.c: 116: if(timeOutVal==0) return 0;
 	movf	((get_RFID@timeOutVal+1)),w
 	iorwf	((get_RFID@timeOutVal)),w
 	skipz
-	goto	u1381
-	goto	u1380
-u1381:
+	goto	u1331
+	goto	u1330
+u1331:
 	goto	l2499
-u1380:
-	goto	l6148
+u1330:
+	goto	l6101
 	line	117
 	
 l2499:	
@@ -3256,7 +2920,7 @@ l2499:
 	incf	(get_RFID@flag_RFID_last),f
 	line	119
 	
-l6298:	
+l6251:	
 ;rfid125.c: 119: RF_serial_55bits[i] <<= 1;
 	movf	(get_RFID@i),w
 	addlw	get_RFID@RF_serial_55bits&0ffh
@@ -3266,35 +2930,35 @@ l6298:
 	rlf	indf,f
 	line	91
 	
-l6300:	
+l6253:	
 	incf	(get_RFID@ii),f
 	
-l6302:	
+l6255:	
 	movlw	(037h)
 	subwf	(get_RFID@ii),w
 	skipc
-	goto	u1391
-	goto	u1390
-u1391:
-	goto	l6246
-u1390:
+	goto	u1341
+	goto	u1340
+u1341:
+	goto	l6199
+u1340:
 	line	122
 	
-l6304:	
+l6257:	
 ;rfid125.c: 120: }
 ;rfid125.c: 121: }
 ;rfid125.c: 122: if(55==ii)
 	movf	(get_RFID@ii),w
 	xorlw	037h
 	skipz
-	goto	u1401
-	goto	u1400
-u1401:
-	goto	l6148
-u1400:
+	goto	u1351
+	goto	u1350
+u1351:
+	goto	l6101
+u1350:
 	line	124
 	
-l6306:	
+l6259:	
 ;rfid125.c: 123: {
 ;rfid125.c: 124: even_col = 0;
 	clrf	(get_RFID@even_col)
@@ -3303,7 +2967,7 @@ l6306:
 	clrf	(get_RFID@ii)
 	line	127
 	
-l6312:	
+l6265:	
 ;rfid125.c: 126: {
 ;rfid125.c: 127: even_row = (RF_serial_55bits[ii] & 0x01);
 	movf	(get_RFID@ii),w
@@ -3313,18 +2977,18 @@ l6312:
 	movf	indf,w
 	movwf	(get_RFID@even_row)
 	
-l6314:	
+l6267:	
 	movlw	(01h)
 	andwf	(get_RFID@even_row),f
 	line	128
 	
-l6316:	
+l6269:	
 ;rfid125.c: 128: for(j=1;j<5;j++)
 	clrf	(get_RFID@j)
 	incf	(get_RFID@j),f
 	line	130
 	
-l6322:	
+l6275:	
 ;rfid125.c: 129: {
 ;rfid125.c: 130: even_row = even_row ^ ((RF_serial_55bits[ii]>>j) & 0x01);
 	movf	(get_RFID@ii),w
@@ -3333,46 +2997,46 @@ l6322:
 	movf	indf,w
 	movwf	(??_get_RFID+0)+0
 	incf	(get_RFID@j),w
-	goto	u1414
-u1415:
+	goto	u1364
+u1365:
 	clrc
 	rrf	(??_get_RFID+0)+0,f
-u1414:
+u1364:
 	addlw	-1
 	skipz
-	goto	u1415
+	goto	u1365
 	movf	0+(??_get_RFID+0)+0,w
 	andlw	01h
 	xorwf	(get_RFID@even_row),f
 	line	128
 	
-l6324:	
+l6277:	
 	incf	(get_RFID@j),f
 	
-l6326:	
+l6279:	
 	movlw	(05h)
 	subwf	(get_RFID@j),w
 	skipc
-	goto	u1421
-	goto	u1420
-u1421:
-	goto	l6322
-u1420:
+	goto	u1371
+	goto	u1370
+u1371:
+	goto	l6275
+u1370:
 	
 l2505:	
 	line	132
 ;rfid125.c: 131: }
 ;rfid125.c: 132: if(even_row & 0x01)
 	btfss	(get_RFID@even_row),(0)&7
-	goto	u1431
-	goto	u1430
-u1431:
-	goto	l6332
-u1430:
-	goto	l6148
+	goto	u1381
+	goto	u1380
+u1381:
+	goto	l6285
+u1380:
+	goto	l6101
 	line	137
 	
-l6332:	
+l6285:	
 ;rfid125.c: 135: }
 ;rfid125.c: 137: RF_serial_55bits[ii] <<= 3;
 	movf	(get_RFID@ii),w
@@ -3392,17 +3056,17 @@ l6332:
 	movwf	(get_RFID@i)
 	line	140
 	
-l6334:	
+l6287:	
 ;rfid125.c: 140: if( 0==ii%2 )
 	btfsc	(get_RFID@ii),(0)&7
-	goto	u1441
-	goto	u1440
-u1441:
-	goto	l6338
-u1440:
+	goto	u1391
+	goto	u1390
+u1391:
+	goto	l6291
+u1390:
 	line	142
 	
-l6336:	
+l6289:	
 ;rfid125.c: 141: {
 ;rfid125.c: 142: keyID[ii/2] = (i & 0xF0);
 	clrc
@@ -3419,10 +3083,10 @@ l6336:
 	andwf	indf,f
 	line	143
 ;rfid125.c: 143: }
-	goto	l6342
+	goto	l6295
 	line	146
 	
-l6338:	
+l6291:	
 ;rfid125.c: 144: else
 ;rfid125.c: 145: {
 ;rfid125.c: 146: i >>=4;
@@ -3432,7 +3096,7 @@ swapf	(get_RFID@i),f
 
 	line	147
 	
-l6340:	
+l6293:	
 ;rfid125.c: 147: keyID[ii/2] |= (i & 0x0F);
 	clrc
 	rrf	(get_RFID@ii),w
@@ -3443,7 +3107,7 @@ l6340:
 	iorwf	indf,f
 	line	149
 	
-l6342:	
+l6295:	
 ;rfid125.c: 148: }
 ;rfid125.c: 149: even_col ^= RF_serial_55bits[ii];
 	movf	(get_RFID@ii),w
@@ -3453,18 +3117,18 @@ l6342:
 	xorwf	(get_RFID@even_col),f
 	line	125
 	
-l6344:	
+l6297:	
 	incf	(get_RFID@ii),f
 	
-l6346:	
+l6299:	
 	movlw	(0Ah)
 	subwf	(get_RFID@ii),w
 	skipc
-	goto	u1451
-	goto	u1450
-u1451:
-	goto	l6312
-u1450:
+	goto	u1401
+	goto	u1400
+u1401:
+	goto	l6265
+u1400:
 	
 l2503:	
 	line	151
@@ -3477,12 +3141,12 @@ l2503:
 	movwf	0+(get_RFID@RF_serial_55bits)+0Ah
 	line	152
 	
-l6348:	
+l6301:	
 ;rfid125.c: 152: keyID[0] =0x00;
 	clrf	(_keyID)
 	line	153
 	
-l6350:	
+l6303:	
 ;rfid125.c: 153: if(((RF_serial_55bits[10] & 0xf0)==(even_col & 0xf0)) && (0==(RF_serial_55bits[10]&0x08)))
 	movlw	(0F0h)
 	andwf	(get_RFID@even_col),w
@@ -3491,22 +3155,22 @@ l6350:
 	andlw	0F0h
 	xorwf	0+(??_get_RFID+0)+0,w
 	skipz
-	goto	u1461
-	goto	u1460
-u1461:
-	goto	l6148
-u1460:
+	goto	u1411
+	goto	u1410
+u1411:
+	goto	l6101
+u1410:
 	
-l6352:	
+l6305:	
 	btfsc	0+(get_RFID@RF_serial_55bits)+0Ah,(3)&7
-	goto	u1471
-	goto	u1470
-u1471:
-	goto	l6148
-u1470:
+	goto	u1421
+	goto	u1420
+u1421:
+	goto	l6101
+u1420:
 	line	156
 	
-l6354:	
+l6307:	
 ;rfid125.c: 154: {
 ;rfid125.c: 156: return 1;
 	movlw	(01h)
@@ -3521,9 +3185,9 @@ GLOBAL	__end_of_get_RFID
 
 	signat	_get_RFID,89
 	global	_eepromWriteByte
-psect	text491,local,class=CODE,delta=2
-global __ptext491
-__ptext491:
+psect	text442,local,class=CODE,delta=2
+global __ptext442
+__ptext442:
 
 ;; *************** function _eepromWriteByte *****************
 ;; Defined at:
@@ -3556,7 +3220,7 @@ __ptext491:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text491
+psect	text442
 	file	"ms82_eeprom.c"
 	line	26
 	global	__size_of_eepromWriteByte
@@ -3569,7 +3233,7 @@ _eepromWriteByte:
 	movwf	(eepromWriteByte@EEAddr)
 	line	27
 	
-l6128:	
+l6081:	
 ;ms82_eeprom.c: 27: GIE = 0;
 	bcf	(95/8),(95)&7
 	line	30
@@ -3580,18 +3244,18 @@ l6128:
 l1598:	
 # 30 "ms82_eeprom.c"
 clrwdt ;#
-psect	text491
+psect	text442
 	
 l1597:	
 	btfsc	(95/8),(95)&7
-	goto	u1031
-	goto	u1030
-u1031:
+	goto	u981
+	goto	u980
+u981:
 	goto	l1598
-u1030:
+u980:
 	line	31
 	
-l6130:	
+l6083:	
 ;ms82_eeprom.c: 31: EEADR = EEAddr;
 	movf	(eepromWriteByte@EEAddr),w
 	bsf	status, 5	;RP0=1, select bank1
@@ -3602,7 +3266,7 @@ l6130:
 	movwf	(154)^080h	;volatile
 	line	33
 	
-l6132:	
+l6085:	
 ;ms82_eeprom.c: 33: EEIF = 0;
 	bcf	status, 5	;RP0=0, select bank0
 	bcf	(103/8),(103)&7
@@ -3613,7 +3277,7 @@ l6132:
 	movwf	(156)^080h	;volatile
 	line	35
 	
-l6134:	
+l6087:	
 ;ms82_eeprom.c: 35: WR = 1;
 	bsf	(1256/8)^080h,(1256)&7
 	line	36
@@ -3623,36 +3287,36 @@ l6134:
 l1601:	
 # 36 "ms82_eeprom.c"
 clrwdt ;#
-psect	text491
+psect	text442
 	
 l1600:	
 	bsf	status, 5	;RP0=1, select bank1
 	btfsc	(1256/8)^080h,(1256)&7
-	goto	u1041
-	goto	u1040
-u1041:
+	goto	u991
+	goto	u990
+u991:
 	goto	l1601
-u1040:
+u990:
 	line	37
 	
-l6136:	
+l6089:	
 ;ms82_eeprom.c: 37: _delay((unsigned long)((2)*(8000000/4000.0)));
 	opt asmopt_off
 movlw	6
 movwf	((??_eepromWriteByte+0)+0+1),f
 	movlw	48
 movwf	((??_eepromWriteByte+0)+0),f
-u1797:
+u1687:
 	decfsz	((??_eepromWriteByte+0)+0),f
-	goto	u1797
+	goto	u1687
 	decfsz	((??_eepromWriteByte+0)+0+1),f
-	goto	u1797
+	goto	u1687
 	clrwdt
 opt asmopt_on
 
 	line	39
 	
-l6138:	
+l6091:	
 ;ms82_eeprom.c: 38: }
 ;ms82_eeprom.c: 39: GIE = 1;
 	bsf	(95/8),(95)&7
@@ -3667,9 +3331,9 @@ GLOBAL	__end_of_eepromWriteByte
 
 	signat	_eepromWriteByte,8312
 	global	_eepromReadBlock
-psect	text492,local,class=CODE,delta=2
-global __ptext492
-__ptext492:
+psect	text443,local,class=CODE,delta=2
+global __ptext443
+__ptext443:
 
 ;; *************** function _eepromReadBlock *****************
 ;; Defined at:
@@ -3704,7 +3368,7 @@ __ptext492:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text492
+psect	text443
 	file	"ms82_eeprom.c"
 	line	18
 	global	__size_of_eepromReadBlock
@@ -3717,14 +3381,14 @@ _eepromReadBlock:
 	line	20
 	movwf	(eepromReadBlock@addStart)
 	
-l6120:	
+l6073:	
 ;ms82_eeprom.c: 19: unsigned char i;
 ;ms82_eeprom.c: 20: for(i=0;i<len;i++){
 	clrf	(eepromReadBlock@i)
-	goto	l6126
+	goto	l6079
 	line	21
 	
-l6122:	
+l6075:	
 ;ms82_eeprom.c: 21: buff[i] = eepromReadByte(addStart+i);
 	movf	(eepromReadBlock@i),w
 	addwf	(eepromReadBlock@buff),w
@@ -3738,18 +3402,18 @@ l6122:
 	movwf	indf
 	line	20
 	
-l6124:	
+l6077:	
 	incf	(eepromReadBlock@i),f
 	
-l6126:	
+l6079:	
 	movf	(eepromReadBlock@len),w
 	subwf	(eepromReadBlock@i),w
 	skipc
-	goto	u1021
-	goto	u1020
-u1021:
-	goto	l6122
-u1020:
+	goto	u971
+	goto	u970
+u971:
+	goto	l6075
+u970:
 	line	23
 	
 l1594:	
@@ -3761,9 +3425,9 @@ GLOBAL	__end_of_eepromReadBlock
 
 	signat	_eepromReadBlock,12408
 	global	_sys_init
-psect	text493,local,class=CODE,delta=2
-global __ptext493
-__ptext493:
+psect	text444,local,class=CODE,delta=2
+global __ptext444
+__ptext444:
 
 ;; *************** function _sys_init *****************
 ;; Defined at:
@@ -3794,7 +3458,7 @@ __ptext493:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text493
+psect	text444
 	file	"sysinit.c"
 	line	3
 	global	__size_of_sys_init
@@ -3805,14 +3469,14 @@ _sys_init:
 ; Regs used in _sys_init: [wreg]
 	line	21
 	
-l6116:	
+l6069:	
 ;sysinit.c: 21: OSCCON = 0B01100001;
 	movlw	(061h)
 	bsf	status, 5	;RP0=1, select bank1
 	movwf	(143)^080h	;volatile
 	line	22
 	
-l6118:	
+l6071:	
 ;sysinit.c: 22: _nop();
 	nop
 	line	28
@@ -3821,11 +3485,11 @@ l6118:
 l787:	
 	bsf	status, 5	;RP0=1, select bank1
 	btfss	(1146/8)^080h,(1146)&7
-	goto	u1011
-	goto	u1010
-u1011:
+	goto	u961
+	goto	u960
+u961:
 	goto	l787
-u1010:
+u960:
 	line	30
 	
 l790:	
@@ -3837,9 +3501,9 @@ GLOBAL	__end_of_sys_init
 
 	signat	_sys_init,88
 	global	___lbdiv
-psect	text494,local,class=CODE,delta=2
-global __ptext494
-__ptext494:
+psect	text445,local,class=CODE,delta=2
+global __ptext445
+__ptext445:
 
 ;; *************** function ___lbdiv *****************
 ;; Defined at:
@@ -3874,7 +3538,7 @@ __ptext494:
 ;;		_id_search
 ;; This function uses a non-reentrant model
 ;;
-psect	text494
+psect	text445
 	file	"D:\OneDrive\SmarRF\MCU\MC82\IDE\ORIGINIDE_V2.0.9\Program Files (x86)\HI-TECH Software\PICC\9.83\sources\lbdiv.c"
 	line	5
 	global	__size_of___lbdiv
@@ -3887,88 +3551,88 @@ ___lbdiv:
 	line	9
 	movwf	(___lbdiv@dividend)
 	
-l6092:	
+l6045:	
 	clrf	(___lbdiv@quotient)
 	line	10
 	
-l6094:	
+l6047:	
 	movf	(___lbdiv@divisor),w
 	skipz
-	goto	u970
-	goto	l6112
-u970:
+	goto	u920
+	goto	l6065
+u920:
 	line	11
 	
-l6096:	
+l6049:	
 	clrf	(___lbdiv@counter)
 	incf	(___lbdiv@counter),f
 	line	12
-	goto	l6100
+	goto	l6053
 	
-l4906:	
+l4901:	
 	line	13
 	clrc
 	rlf	(___lbdiv@divisor),f
 	line	14
 	
-l6098:	
+l6051:	
 	incf	(___lbdiv@counter),f
 	line	12
 	
-l6100:	
+l6053:	
 	btfss	(___lbdiv@divisor),(7)&7
-	goto	u981
-	goto	u980
-u981:
-	goto	l4906
-u980:
+	goto	u931
+	goto	u930
+u931:
+	goto	l4901
+u930:
 	line	16
 	
-l4908:	
+l4903:	
 	line	17
 	clrc
 	rlf	(___lbdiv@quotient),f
 	line	18
 	
-l6102:	
+l6055:	
 	movf	(___lbdiv@divisor),w
 	subwf	(___lbdiv@dividend),w
 	skipc
-	goto	u991
-	goto	u990
-u991:
-	goto	l6108
-u990:
+	goto	u941
+	goto	u940
+u941:
+	goto	l6061
+u940:
 	line	19
 	
-l6104:	
+l6057:	
 	movf	(___lbdiv@divisor),w
 	subwf	(___lbdiv@dividend),f
 	line	20
 	
-l6106:	
+l6059:	
 	bsf	(___lbdiv@quotient)+(0/8),(0)&7
 	line	22
 	
-l6108:	
+l6061:	
 	clrc
 	rrf	(___lbdiv@divisor),f
 	line	23
 	
-l6110:	
+l6063:	
 	decfsz	(___lbdiv@counter),f
-	goto	u1001
-	goto	u1000
-u1001:
-	goto	l4908
-u1000:
+	goto	u951
+	goto	u950
+u951:
+	goto	l4903
+u950:
 	line	25
 	
-l6112:	
+l6065:	
 	movf	(___lbdiv@quotient),w
 	line	26
 	
-l4911:	
+l4906:	
 	return
 	opt stack 0
 GLOBAL	__end_of___lbdiv
@@ -3977,9 +3641,9 @@ GLOBAL	__end_of___lbdiv
 
 	signat	___lbdiv,8313
 	global	___bmul
-psect	text495,local,class=CODE,delta=2
-global __ptext495
-__ptext495:
+psect	text446,local,class=CODE,delta=2
+global __ptext446
+__ptext446:
 
 ;; *************** function ___bmul *****************
 ;; Defined at:
@@ -4012,7 +3676,7 @@ __ptext495:
 ;;		_id_replate
 ;; This function uses a non-reentrant model
 ;;
-psect	text495
+psect	text446
 	file	"D:\OneDrive\SmarRF\MCU\MC82\IDE\ORIGINIDE_V2.0.9\Program Files (x86)\HI-TECH Software\PICC\9.83\sources\bmul.c"
 	line	3
 	global	__size_of___bmul
@@ -4025,49 +3689,49 @@ ___bmul:
 	movwf	(___bmul@multiplier)
 	line	4
 	
-l6076:	
+l6029:	
 	clrf	(___bmul@product)
 	line	7
 	
-l6078:	
+l6031:	
 	btfss	(___bmul@multiplier),(0)&7
-	goto	u951
-	goto	u950
-u951:
-	goto	l6082
-u950:
+	goto	u901
+	goto	u900
+u901:
+	goto	l6035
+u900:
 	line	8
 	
-l6080:	
+l6033:	
 	movf	(___bmul@multiplicand),w
 	addwf	(___bmul@product),f
 	line	9
 	
-l6082:	
+l6035:	
 	clrc
 	rlf	(___bmul@multiplicand),f
 	line	10
 	
-l6084:	
+l6037:	
 	clrc
 	rrf	(___bmul@multiplier),f
 	line	11
 	
-l6086:	
+l6039:	
 	movf	(___bmul@multiplier),f
 	skipz
-	goto	u961
-	goto	u960
-u961:
-	goto	l6078
-u960:
+	goto	u911
+	goto	u910
+u911:
+	goto	l6031
+u910:
 	line	12
 	
-l6088:	
+l6041:	
 	movf	(___bmul@product),w
 	line	13
 	
-l4875:	
+l4870:	
 	return
 	opt stack 0
 GLOBAL	__end_of___bmul
@@ -4076,9 +3740,9 @@ GLOBAL	__end_of___bmul
 
 	signat	___bmul,8313
 	global	_setState
-psect	text496,local,class=CODE,delta=2
-global __ptext496
-__ptext496:
+psect	text447,local,class=CODE,delta=2
+global __ptext447
+__ptext447:
 
 ;; *************** function _setState *****************
 ;; Defined at:
@@ -4110,7 +3774,7 @@ __ptext496:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text496
+psect	text447
 	file	"MAIN.C"
 	line	152
 	global	__size_of_setState
@@ -4123,20 +3787,20 @@ _setState:
 	line	154
 	movwf	(setState@stt)
 	
-l6070:	
+l6023:	
 ;MAIN.C: 154: mtState = stt;
 	movf	(setState@stt),w
 	bcf	status, 5	;RP0=0, select bank0
 	movwf	(_mtState)
 	line	155
 	
-l6072:	
+l6025:	
 ;MAIN.C: 155: timeTick = 0;
 	clrf	(_timeTick)
 	clrf	(_timeTick+1)
 	line	156
 	
-l6074:	
+l6027:	
 ;MAIN.C: 156: timeOut = _tOut;
 	movf	(setState@_tOut+1),w
 	movwf	(_timeOut+1)
@@ -4144,7 +3808,7 @@ l6074:
 	movwf	(_timeOut)
 	line	157
 	
-l4131:	
+l4128:	
 	return
 	opt stack 0
 GLOBAL	__end_of_setState
@@ -4153,9 +3817,9 @@ GLOBAL	__end_of_setState
 
 	signat	_setState,8312
 	global	_SET_EPWM_ON
-psect	text497,local,class=CODE,delta=2
-global __ptext497
-__ptext497:
+psect	text448,local,class=CODE,delta=2
+global __ptext448
+__ptext448:
 
 ;; *************** function _SET_EPWM_ON *****************
 ;; Defined at:
@@ -4186,7 +3850,7 @@ __ptext497:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text497
+psect	text448
 	file	"ms82_pwm.c"
 	line	11
 	global	__size_of_SET_EPWM_ON
@@ -4197,25 +3861,25 @@ _SET_EPWM_ON:
 ; Regs used in _SET_EPWM_ON: [wreg+status,2]
 	line	12
 	
-l6044:	
+l5997:	
 ;ms82_pwm.c: 12: TRISC |= 0B00100000;
 	bsf	(135)^080h+(5/8),(5)&7	;volatile
 	line	13
 	
-l6046:	
+l5999:	
 ;ms82_pwm.c: 13: T2CON0 = 0B00000001;
 	movlw	(01h)
 	bcf	status, 5	;RP0=0, select bank0
 	movwf	(18)	;volatile
 	line	14
 	
-l6048:	
+l6001:	
 ;ms82_pwm.c: 14: T2CON1 = 0B00000000;
 	bsf	status, 5	;RP0=1, select bank1
 	clrf	(158)^080h	;volatile
 	line	15
 	
-l6050:	
+l6003:	
 ;ms82_pwm.c: 15: PR2H = 0;
 	clrf	(146)^080h	;volatile
 	line	16
@@ -4224,52 +3888,52 @@ l6050:
 	movwf	(145)^080h	;volatile
 	line	17
 	
-l6052:	
+l6005:	
 ;ms82_pwm.c: 17: P1ADTH = 0;
 	bcf	status, 5	;RP0=0, select bank0
 	clrf	(20)	;volatile
 	line	18
 	
-l6054:	
+l6007:	
 ;ms82_pwm.c: 18: P1ADTL = 4;
 	movlw	(04h)
 	movwf	(14)	;volatile
 	line	20
 	
-l6056:	
+l6009:	
 ;ms82_pwm.c: 20: P1OE = 0B00000001;
 	movlw	(01h)
 	bsf	status, 5	;RP0=1, select bank1
 	movwf	(144)^080h	;volatile
 	line	21
 	
-l6058:	
+l6011:	
 ;ms82_pwm.c: 21: P1POL = 0B00000000;
 	clrf	(153)^080h	;volatile
 	line	22
 	
-l6060:	
+l6013:	
 ;ms82_pwm.c: 22: P1CON = 0B00000000;
 	bcf	status, 5	;RP0=0, select bank0
 	clrf	(22)	;volatile
 	line	24
 	
-l6062:	
+l6015:	
 ;ms82_pwm.c: 24: TMR2H = 0;
 	clrf	(19)	;volatile
 	line	25
 	
-l6064:	
+l6017:	
 ;ms82_pwm.c: 25: TMR2L = 0;
 	clrf	(17)	;volatile
 	line	26
 	
-l6066:	
+l6019:	
 ;ms82_pwm.c: 26: TMR2IF = 0;
 	bcf	(97/8),(97)&7
 	line	27
 	
-l6068:	
+l6021:	
 ;ms82_pwm.c: 27: TMR2ON = 1;
 	bsf	(146/8),(146)&7
 	line	28
@@ -4279,16 +3943,16 @@ l6068:
 l3295:	
 # 28 "ms82_pwm.c"
 clrwdt ;#
-psect	text497
+psect	text448
 	
 l3294:	
 	bcf	status, 5	;RP0=0, select bank0
 	btfss	(97/8),(97)&7
-	goto	u941
-	goto	u940
-u941:
+	goto	u891
+	goto	u890
+u891:
 	goto	l3295
-u940:
+u890:
 	
 l3296:	
 	line	29
@@ -4306,9 +3970,9 @@ GLOBAL	__end_of_SET_EPWM_ON
 
 	signat	_SET_EPWM_ON,88
 	global	_timerOut
-psect	text498,local,class=CODE,delta=2
-global __ptext498
-__ptext498:
+psect	text449,local,class=CODE,delta=2
+global __ptext449
+__ptext449:
 
 ;; *************** function _timerOut *****************
 ;; Defined at:
@@ -4341,7 +4005,7 @@ __ptext498:
 ;;		_get_RFID
 ;; This function uses a non-reentrant model
 ;;
-psect	text498
+psect	text449
 	file	"rfid125.c"
 	line	6
 	global	__size_of_timerOut
@@ -4354,78 +4018,78 @@ _timerOut:
 	line	8
 	movwf	(timerOut@Logic)
 	
-l6020:	
+l5973:	
 ;rfid125.c: 7: unsigned int CurTimer;
 ;rfid125.c: 8: T0ON = 0;
 	bcf	(251/8),(251)&7
 	line	9
 	
-l6022:	
+l5975:	
 ;rfid125.c: 9: TMR0 = 0;
 	clrf	(1)	;volatile
 	line	10
 	
-l6024:	
+l5977:	
 ;rfid125.c: 10: T0IF = 0;
 	bcf	(90/8),(90)&7
 	line	11
 	
-l6026:	
+l5979:	
 ;rfid125.c: 11: T0ON = 1;
 	bsf	(251/8),(251)&7
 	line	12
 ;rfid125.c: 12: while(RA5==Logic){
-	goto	l6038
+	goto	l5991
 	line	13
 	
-l6028:	
+l5981:	
 ;rfid125.c: 13: CurTimer= (0 <<8 )| TMR0;
 	clrf	(timerOut@CurTimer)
 	clrf	(timerOut@CurTimer+1)
 	
-l6030:	
+l5983:	
 	movf	(1),w	;volatile
 	iorwf	(timerOut@CurTimer),f
 	line	14
 	
-l6032:	
+l5985:	
 ;rfid125.c: 14: if(CurTimer>time)
 	movf	(timerOut@CurTimer+1),w
 	subwf	(timerOut@time+1),w
 	skipz
-	goto	u925
+	goto	u875
 	movf	(timerOut@CurTimer),w
 	subwf	(timerOut@time),w
-u925:
+u875:
 	skipnc
-	goto	u921
-	goto	u920
-u921:
-	goto	l6038
-u920:
+	goto	u871
+	goto	u870
+u871:
+	goto	l5991
+u870:
 	line	15
 	
-l6034:	
+l5987:	
 ;rfid125.c: 15: return 0;
 	clrf	(?_timerOut)
 	clrf	(?_timerOut+1)
 	goto	l2449
 	line	12
 	
-l6038:	
+l5991:	
 	movlw	0
 	btfsc	(45/8),(45)&7
 	movlw	1
 	xorwf	(timerOut@Logic),w
 	skipnz
-	goto	u931
-	goto	u930
-u931:
-	goto	l6028
-u930:
+	goto	u881
+	goto	u880
+u881:
+	goto	l5981
+u880:
 	line	17
 	
-l6040:	
+l5993:	
 ;rfid125.c: 16: }
 ;rfid125.c: 17: return CurTimer;
 	movf	(timerOut@CurTimer+1),w
@@ -4443,9 +4107,9 @@ GLOBAL	__end_of_timerOut
 
 	signat	_timerOut,8314
 	global	_comArr
-psect	text499,local,class=CODE,delta=2
-global __ptext499
-__ptext499:
+psect	text450,local,class=CODE,delta=2
+global __ptext450
+__ptext450:
 
 ;; *************** function _comArr *****************
 ;; Defined at:
@@ -4483,7 +4147,7 @@ __ptext499:
 ;;		_id_search
 ;; This function uses a non-reentrant model
 ;;
-psect	text499
+psect	text450
 	file	"ms82_eeprom.c"
 	line	52
 	global	__size_of_comArr
@@ -4496,33 +4160,33 @@ _comArr:
 	line	55
 	movwf	(comArr@arr1)
 	
-l5988:	
+l5941:	
 ;ms82_eeprom.c: 53: unsigned char i;
 ;ms82_eeprom.c: 55: if(len1!=len2)
 	movf	(comArr@len1),w
 	xorwf	(comArr@len2),w
 	skipnz
-	goto	u881
-	goto	u880
-u881:
-	goto	l5996
-u880:
+	goto	u831
+	goto	u830
+u831:
+	goto	l5949
+u830:
 	line	56
 	
-l5990:	
+l5943:	
 ;ms82_eeprom.c: 56: return 0;
 	movlw	(0)
 	goto	l1613
 	line	58
 	
-l5996:	
+l5949:	
 ;ms82_eeprom.c: 57: else{
 ;ms82_eeprom.c: 58: for(i=0;i<len1;i++){
 	clrf	(comArr@i)
-	goto	l6006
+	goto	l5959
 	line	59
 	
-l5998:	
+l5951:	
 ;ms82_eeprom.c: 59: if(*(arr1+i) != *(arr2+i)){
 	movf	(comArr@i),w
 	addwf	(comArr@arr2),w
@@ -4540,43 +4204,43 @@ l5998:
 	movf	indf,w
 	xorwf	(??_comArr+1)+0,w
 	skipnz
-	goto	u891
-	goto	u890
-u891:
-	goto	l6004
-u890:
-	goto	l5990
+	goto	u841
+	goto	u840
+u841:
+	goto	l5957
+u840:
+	goto	l5943
 	line	58
 	
-l6004:	
+l5957:	
 	incf	(comArr@i),f
 	
-l6006:	
+l5959:	
 	movf	(comArr@len1),w
 	subwf	(comArr@i),w
 	skipc
-	goto	u901
-	goto	u900
-u901:
-	goto	l5998
-u900:
+	goto	u851
+	goto	u850
+u851:
+	goto	l5951
+u850:
 	line	63
 	
-l6008:	
+l5961:	
 ;ms82_eeprom.c: 61: }
 ;ms82_eeprom.c: 62: }
 ;ms82_eeprom.c: 63: if(i==len1)
 	movf	(comArr@i),w
 	xorwf	(comArr@len1),w
 	skipz
-	goto	u911
-	goto	u910
-u911:
-	goto	l5990
-u910:
+	goto	u861
+	goto	u860
+u861:
+	goto	l5943
+u860:
 	line	64
 	
-l6010:	
+l5963:	
 ;ms82_eeprom.c: 64: return 1;
 	movlw	(01h)
 	line	68
@@ -4590,9 +4254,9 @@ GLOBAL	__end_of_comArr
 
 	signat	_comArr,16505
 	global	_eepromReadByte
-psect	text500,local,class=CODE,delta=2
-global __ptext500
-__ptext500:
+psect	text451,local,class=CODE,delta=2
+global __ptext451
+__ptext451:
 
 ;; *************** function _eepromReadByte *****************
 ;; Defined at:
@@ -4625,7 +4289,7 @@ __ptext500:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text500
+psect	text451
 	file	"ms82_eeprom.c"
 	line	7
 	global	__size_of_eepromReadByte
@@ -4638,7 +4302,7 @@ _eepromReadByte:
 	line	10
 	movwf	(eepromReadByte@EEAddr)
 	
-l5980:	
+l5933:	
 ;ms82_eeprom.c: 8: unsigned char ReEepromData;
 ;ms82_eeprom.c: 10: EEADR = EEAddr;
 	movf	(eepromReadByte@EEAddr),w
@@ -4646,7 +4310,7 @@ l5980:
 	movwf	(155)^080h	;volatile
 	line	11
 	
-l5982:	
+l5935:	
 ;ms82_eeprom.c: 11: RD = 1;
 	bsf	(1248/8)^080h,(1248)&7
 	line	12
@@ -4655,7 +4319,7 @@ l5982:
 	movwf	(eepromReadByte@ReEepromData)
 	line	13
 	
-l5984:	
+l5937:	
 ;ms82_eeprom.c: 13: RD = 0;
 	bcf	(1248/8)^080h,(1248)&7
 	line	14
@@ -4672,9 +4336,9 @@ GLOBAL	__end_of_eepromReadByte
 
 	signat	_eepromReadByte,4217
 	global	_int_init
-psect	text501,local,class=CODE,delta=2
-global __ptext501
-__ptext501:
+psect	text452,local,class=CODE,delta=2
+global __ptext452
+__ptext452:
 
 ;; *************** function _int_init *****************
 ;; Defined at:
@@ -4705,7 +4369,7 @@ __ptext501:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text501
+psect	text452
 	file	"sysinit.c"
 	line	66
 	global	__size_of_int_init
@@ -4716,7 +4380,7 @@ _int_init:
 ; Regs used in _int_init: [status,2]
 	line	72
 	
-l5966:	
+l5919:	
 ;sysinit.c: 72: INTCON = 0B00000000;
 	clrf	(11)	;volatile
 	line	73
@@ -4728,33 +4392,33 @@ l5966:
 	clrf	(12)	;volatile
 	line	87
 	
-l5968:	
+l5921:	
 ;sysinit.c: 87: T0IF = 0;
 	bcf	(90/8),(90)&7
 	line	88
 	
-l5970:	
+l5923:	
 ;sysinit.c: 88: T0IE = 0;
 	bcf	(93/8),(93)&7
 	line	92
 	
-l5972:	
+l5925:	
 ;sysinit.c: 92: TMR2IF = 0;
 	bcf	(97/8),(97)&7
 	line	93
 	
-l5974:	
+l5927:	
 ;sysinit.c: 93: TMR2IE = 1;
 	bsf	status, 5	;RP0=1, select bank1
 	bsf	(1121/8)^080h,(1121)&7
 	line	99
 	
-l5976:	
+l5929:	
 ;sysinit.c: 99: PEIE = 0;
 	bcf	(94/8),(94)&7
 	line	101
 	
-l5978:	
+l5931:	
 ;sysinit.c: 101: GIE = 1;
 	bsf	(95/8),(95)&7
 	line	102
@@ -4768,9 +4432,9 @@ GLOBAL	__end_of_int_init
 
 	signat	_int_init,88
 	global	_timer_init
-psect	text502,local,class=CODE,delta=2
-global __ptext502
-__ptext502:
+psect	text453,local,class=CODE,delta=2
+global __ptext453
+__ptext453:
 
 ;; *************** function _timer_init *****************
 ;; Defined at:
@@ -4801,7 +4465,7 @@ __ptext502:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text502
+psect	text453
 	file	"sysinit.c"
 	line	44
 	global	__size_of_timer_init
@@ -4812,7 +4476,7 @@ _timer_init:
 ; Regs used in _timer_init: [wreg]
 	line	46
 	
-l5964:	
+l5917:	
 ;sysinit.c: 46: OPTION = 0B00000011;
 	movlw	(03h)
 	movwf	(129)^080h	;volatile
@@ -4827,9 +4491,9 @@ GLOBAL	__end_of_timer_init
 
 	signat	_timer_init,88
 	global	_gpio_init
-psect	text503,local,class=CODE,delta=2
-global __ptext503
-__ptext503:
+psect	text454,local,class=CODE,delta=2
+global __ptext454
+__ptext454:
 
 ;; *************** function _gpio_init *****************
 ;; Defined at:
@@ -4860,7 +4524,7 @@ __ptext503:
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text503
+psect	text454
 	file	"sysinit.c"
 	line	32
 	global	__size_of_gpio_init
@@ -4871,33 +4535,33 @@ _gpio_init:
 ; Regs used in _gpio_init: [wreg+status,2]
 	line	34
 	
-l5954:	
+l5907:	
 ;sysinit.c: 34: PORTA = 0B00000000;
 	bcf	status, 5	;RP0=0, select bank0
 	clrf	(5)	;volatile
 	line	35
 	
-l5956:	
+l5909:	
 ;sysinit.c: 35: TRISA = 0B01110011;
 	movlw	(073h)
 	bsf	status, 5	;RP0=1, select bank1
 	movwf	(133)^080h	;volatile
 	line	36
 	
-l5958:	
+l5911:	
 ;sysinit.c: 36: WPUA = 0B10000000;
 	movlw	(080h)
 	movwf	(149)^080h	;volatile
 	line	37
 	
-l5960:	
+l5913:	
 ;sysinit.c: 37: PORTC = 0B00000010;
 	movlw	(02h)
 	bcf	status, 5	;RP0=0, select bank0
 	movwf	(7)	;volatile
 	line	38
 	
-l5962:	
+l5915:	
 ;sysinit.c: 38: TRISC = 0B11111110;
 	movlw	(0FEh)
 	bsf	status, 5	;RP0=1, select bank1
@@ -4916,9 +4580,9 @@ GLOBAL	__end_of_gpio_init
 
 	signat	_gpio_init,88
 	global	_ISR
-psect	text504,local,class=CODE,delta=2
-global __ptext504
-__ptext504:
+psect	text455,local,class=CODE,delta=2
+global __ptext455
+__ptext455:
 
 ;; *************** function _ISR *****************
 ;; Defined at:
@@ -4948,7 +4612,7 @@ __ptext504:
 ;;		Interrupt level 1
 ;; This function uses a non-reentrant model
 ;;
-psect	text504
+psect	text455
 	file	"MAIN.C"
 	line	89
 	global	__size_of_ISR
@@ -4970,10 +4634,10 @@ interrupt_function:
 	movf	pclath,w
 	movwf	(??_ISR+1)
 	ljmp	_ISR
-psect	text504
+psect	text455
 	line	149
 	
-i1l4128:	
+i1l4125:	
 	movf	(??_ISR+1),w
 	movwf	pclath
 	swapf	(??_ISR+0)^0FFFFFF80h,w
@@ -4987,9 +4651,9 @@ GLOBAL	__end_of_ISR
 ;; =============== function _ISR ends ============
 
 	signat	_ISR,88
-psect	text505,local,class=CODE,delta=2
-global __ptext505
-__ptext505:
+psect	text456,local,class=CODE,delta=2
+global __ptext456
+__ptext456:
 	global	btemp
 	btemp set 07Eh
 

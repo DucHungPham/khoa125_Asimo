@@ -33,7 +33,7 @@
 #define tOut_PwOn	12	//~4.30s
 
 #define _Alert		2
-#define tOut_Alert  42	//85~6.30s
+#define tOut_Alert  60	//~25s
 #define add_Alert 0x08
 
 #define _subTagProg	3

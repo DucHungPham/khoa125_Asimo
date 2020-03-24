@@ -25,70 +25,66 @@ Machine type is 16F685
 startup.obj     end_init                              A        A        1        8       0
                 reset_vec                             0        0        1        0       0
 smartkey.obj    intentry                              4        4        6        8       0
-                text504                             464      464        7      8C8       0
-                text503                             41A      41A        F        8       0
-                text502                             46B      46B        3      8C8       0
-                text501                             437      437        C        8       0
-                text500                             455      455        8        8       0
-                text499                             33B      33B       1F        8       0
-                text498                             31C      31C       1F        8       0
-                text497                             2FD      2FD       1F        8       0
-                text496                             443      443        A        8       0
-                text495                             429      429        E        8       0
-                text494                             378      378       1B        8       0
-                text493                             44D      44D        8        8       0
-                text492                             3EA      3EA       11        8       0
-                text491                             2BD      2BD       21        8       0
-                text490                               B        B      14A        8       0
-                text489                             3FB      3FB       10        8       0
-                text488                             393      393       1A        8       0
-                text487                             3D8      3D8       12        8       0
-                text486                             3C3      3C3       15        8       0
-                text485                             282      282       3B        8       0
-                text484                             2DE      2DE       1F        8       0
-                swtext1                             45D      45D        7      8BA       0
-                maintext                            155      155      12D        8       0
+                text455                             407      407        7      80E       0
+                text454                             3BC      3BC        F        8       0
+                text453                             40E      40E        3      80E       0
+                text452                             3D9      3D9        C        8       0
+                text451                             3F7      3F7        8        8       0
+                text450                             302      302       1F        8       0
+                text449                             2E3      2E3       1F        8       0
+                text448                             2C4      2C4       1F        8       0
+                text447                             3E5      3E5        A        8       0
+                text446                             3CB      3CB        E        8       0
+                text445                             33F      33F       1B        8       0
+                text444                             3EF      3EF        8        8       0
+                text443                             39C      39C       11        8       0
+                text442                             284      284       21        8       0
+                text441                               B        B      14A        8       0
+                text440                             35A      35A       1A        8       0
+                text439                             38A      38A       12        8       0
+                text438                             249      249       3B        8       0
+                text437                             2A5      2A5       1F        8       0
+                swtext1                             400      400        7      800       0
+                maintext                            155      155       F4        8       0
                 cstackBANK0                          3E       3E       1A       20       1
                 cstackCOMMON                         70       70        C       70       1
-                inittext                            40B      40B        F        8       0
+                inittext                            3AD      3AD        F        8       0
                 dataBANK0                            20       20       1E       20       1
                 bssBANK0                             58       58        A       20       1
-                cinit                               3AD      3AD       16        8       0
-                idataBANK0                          35A      35A       1E        8       0
+                cinit                               374      374       16        8       0
+                idataBANK0                          321      321       1E        8       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   CONST          
-                swtext1                             45D      45D        7         0
+                swtext1                             400      400        7         0
 
         CLASS   CODE           
                 end_init                              A        A        1         0
                 intentry                              4        4        6         0
                 reset_vec                             0        0        1         0
-                text504                             464      464        7         0
-                text503                             41A      41A        F         0
-                text502                             46B      46B        3         0
-                text501                             437      437        C         0
-                text500                             455      455        8         0
-                text499                             33B      33B       1F         0
-                text498                             31C      31C       1F         0
-                text497                             2FD      2FD       1F         0
-                text496                             443      443        A         0
-                text495                             429      429        E         0
-                text494                             378      378       1B         0
-                text493                             44D      44D        8         0
-                text492                             3EA      3EA       11         0
-                text491                             2BD      2BD       21         0
-                text490                               B        B      14A         0
-                text489                             3FB      3FB       10         0
-                text488                             393      393       1A         0
-                text487                             3D8      3D8       12         0
-                text486                             3C3      3C3       15         0
-                text485                             282      282       3B         0
-                text484                             2DE      2DE       1F         0
-                maintext                            155      155      12D         0
-                inittext                            40B      40B        F         0
-                cinit                               3AD      3AD       16         0
-                idataBANK0                          35A      35A       1E         0
+                text455                             407      407        7         0
+                text454                             3BC      3BC        F         0
+                text453                             40E      40E        3         0
+                text452                             3D9      3D9        C         0
+                text451                             3F7      3F7        8         0
+                text450                             302      302       1F         0
+                text449                             2E3      2E3       1F         0
+                text448                             2C4      2C4       1F         0
+                text447                             3E5      3E5        A         0
+                text446                             3CB      3CB        E         0
+                text445                             33F      33F       1B         0
+                text444                             3EF      3EF        8         0
+                text443                             39C      39C       11         0
+                text442                             284      284       21         0
+                text441                               B        B      14A         0
+                text440                             35A      35A       1A         0
+                text439                             38A      38A       12         0
+                text438                             249      249       3B         0
+                text437                             2A5      2A5       1F         0
+                maintext                            155      155       F4         0
+                inittext                            3AD      3AD        F         0
+                cinit                               374      374       16         0
+                idataBANK0                          321      321       1E         0
 
         CLASS   STRCODE        
 
@@ -132,11 +128,11 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class     Delta
 
                 reset_vec                      000000  000001  000001         0       0  CODE        2
-                intentry                       000004  000459  00045D         8       0  CODE        2
+                intentry                       000004  0003FB  0003FF         8       0  CODE        2
                 dataBANK0                      000020  000042  000062        20       1  BANK0       1
                 cstackCOMMON                   000070  00000C  00007C        70       1  COMMON      1
-                swtext1                        00045D  000007  000464       8BA       0  CONST       2
-                text504                        000464  00000A  00046E       8C8       0  CODE        2
+                swtext1                        000400  000007  000407       800       0  CONST       2
+                text455                        000407  00000A  000411       80E       0  CODE        2
 
 
 UNUSED ADDRESS RANGES
@@ -145,23 +141,28 @@ UNUSED ADDRESS RANGES
         BANK0            062-06F             E           1
         BANK1            0A0-0BF            20           1
         CODE             001-003             3           2
-                         46E-7FF           392
+                         3FF-3FF             1
+                         411-7FF           3EF
         COMMON           07C-07D             2           1
         CONFIG           2007-2007             1           2
         CONST            001-003             3           2
-                         46E-7FF           100
+                         3FF-3FF             1
+                         411-7FF           100
         EEDATA           2100-21FF           100           2
         ENTRY            001-003             3           2
-                         46E-7FF           100
+                         3FF-3FF             1
+                         411-7FF           100
         IDLOC            2000-2003             4           2
         RAM              062-06F             E           1
                          0A0-0BF            20
         SFR0             000-01F            20           1
         SFR1             080-09F            20           1
         STRCODE          001-003             3           2
-                         46E-7FF           392
+                         3FF-3FF             1
+                         411-7FF           3EF
         STRING           001-003             3           2
-                         46E-7FF           100
+                         3FF-3FF             1
+                         411-7FF           100
 
                                   Symbol Table
 
@@ -169,9 +170,7 @@ UNUSED ADDRESS RANGES
 ??_SET_EPWM_ON              cstackCOMMON 072
 ??___bmul                   cstackCOMMON 073
 ??___lbdiv                  cstackCOMMON 073
-??_beep2                    cstackCOMMON 076
 ??_comArr                   cstackCOMMON 075
-??_delay_x10ms              cstackCOMMON 072
 ??_eepromReadBlock          cstackCOMMON 076
 ??_eepromReadByte           cstackCOMMON 072
 ??_eepromWriteBlock         cstackCOMMON 078
@@ -191,9 +190,7 @@ UNUSED ADDRESS RANGES
 ?_SET_EPWM_ON               cstackCOMMON 070
 ?___bmul                    cstackCOMMON 072
 ?___lbdiv                   cstackCOMMON 072
-?_beep2                     cstackCOMMON 075
 ?_comArr                    cstackCOMMON 072
-?_delay_x10ms               cstackCOMMON 070
 ?_eepromReadBlock           cstackCOMMON 074
 ?_eepromReadByte            cstackCOMMON 070
 ?_eepromWriteBlock          cstackCOMMON 076
@@ -260,7 +257,7 @@ _IOCB4                      (abs)        8B4
 _IOCB5                      (abs)        8B5
 _IOCB6                      (abs)        8B6
 _IOCB7                      (abs)        8B7
-_ISR                        text504      464
+_ISR                        text455      407
 _MC1OUT                     (abs)        8DF
 _MC2OUT                     (abs)        8DE
 _OPTION                     (abs)        081
@@ -282,9 +279,8 @@ _PULSR                      (abs)        CF2
 _PULSS                      (abs)        CF3
 _RA3                        (abs)        02B
 _RA5                        (abs)        02D
-_RC0                        (abs)        038
 _RD                         (abs)        4E0
-_SET_EPWM_ON                text497      2FD
+_SET_EPWM_ON                text448      2C4
 _SR0                        (abs)        CF6
 _SR1                        (abs)        CF7
 _SRCON                      (abs)        19E
@@ -381,77 +377,71 @@ __Lsfr0                     sfr0         000
 __Lsfr1                     sfr1         000
 __Lstrings                  strings      000
 __Ltext                     text         000
-__S0                        (abs)        46E
+__S0                        (abs)        411
 __S1                        (abs)        07C
 __S2                        (abs)        000
-___bmul                     text495      429
+___bmul                     text446      3CB
 ___bmul@multiplicand        cstackCOMMON 072
 ___bmul@multiplier          cstackCOMMON 074
 ___bmul@product             cstackCOMMON 073
-___lbdiv                    text494      378
+___lbdiv                    text445      33F
 ___lbdiv@counter            cstackCOMMON 074
 ___lbdiv@dividend           cstackCOMMON 073
 ___lbdiv@divisor            cstackCOMMON 072
 ___lbdiv@quotient           cstackCOMMON 075
-__end_of_ISR                text504      46B
-__end_of_SET_EPWM_ON        text497      31C
-__end_of___bmul             text495      437
-__end_of___lbdiv            text494      393
-__end_of_beep2              text486      3D8
-__end_of_comArr             text499      35A
-__end_of_delay_x10ms        text489      40B
-__end_of_eepromReadBlock    text492      3FB
-__end_of_eepromReadByte     text500      45D
-__end_of_eepromWriteBlock   text487      3EA
-__end_of_eepromWriteByte    text491      2DE
-__end_of_get_RFID           text490      143
-__end_of_gpio_init          text503      429
-__end_of_id_clear           text484      2FD
-__end_of_id_replate         text485      2B6
-__end_of_id_search          text488      3AD
-__end_of_int_init           text501      443
-__end_of_main               maintext     282
-__end_of_setState           text496      44D
-__end_of_sys_init           text493      455
-__end_of_timerOut           text498      33B
-__end_of_timer_init         text502      46E
+__end_of_ISR                text455      40E
+__end_of_SET_EPWM_ON        text448      2E3
+__end_of___bmul             text446      3D9
+__end_of___lbdiv            text445      35A
+__end_of_comArr             text450      321
+__end_of_eepromReadBlock    text443      3AD
+__end_of_eepromReadByte     text451      3FF
+__end_of_eepromWriteBlock   text439      39C
+__end_of_eepromWriteByte    text442      2A5
+__end_of_get_RFID           text441      143
+__end_of_gpio_init          text454      3CB
+__end_of_id_clear           text437      2C4
+__end_of_id_replate         text438      27D
+__end_of_id_search          text440      374
+__end_of_int_init           text452      3E5
+__end_of_main               maintext     249
+__end_of_setState           text447      3EF
+__end_of_sys_init           text444      3F7
+__end_of_timerOut           text449      302
+__end_of_timer_init         text453      411
 __pbssBANK0                 bssBANK0     058
 __pcstackBANK0              cstackBANK0  03E
 __pcstackCOMMON             cstackCOMMON 070
 __pdataBANK0                dataBANK0    020
-__pidataBANK0               idataBANK0   35A
+__pidataBANK0               idataBANK0   321
 __pintentry                 intentry     004
 __pmaintext                 maintext     155
-__pswtext1                  swtext1      45D
-__ptext484                  text484      2DE
-__ptext485                  text485      282
-__ptext486                  text486      3C3
-__ptext487                  text487      3D8
-__ptext488                  text488      393
-__ptext489                  text489      3FB
-__ptext490                  text490      00B
-__ptext491                  text491      2BD
-__ptext492                  text492      3EA
-__ptext493                  text493      44D
-__ptext494                  text494      378
-__ptext495                  text495      429
-__ptext496                  text496      443
-__ptext497                  text497      2FD
-__ptext498                  text498      31C
-__ptext499                  text499      33B
-__ptext500                  text500      455
-__ptext501                  text501      437
-__ptext502                  text502      46B
-__ptext503                  text503      41A
-__ptext504                  text504      464
-__ptext505                  text505      000
+__pswtext1                  swtext1      400
+__ptext437                  text437      2A5
+__ptext438                  text438      249
+__ptext439                  text439      38A
+__ptext440                  text440      35A
+__ptext441                  text441      00B
+__ptext442                  text442      284
+__ptext443                  text443      39C
+__ptext444                  text444      3EF
+__ptext445                  text445      33F
+__ptext446                  text446      3CB
+__ptext447                  text447      3E5
+__ptext448                  text448      2C4
+__ptext449                  text449      2E3
+__ptext450                  text450      302
+__ptext451                  text451      3F7
+__ptext452                  text452      3D9
+__ptext453                  text453      40E
+__ptext454                  text454      3BC
+__ptext455                  text455      407
+__ptext456                  text456      000
 __size_of_ISR               (abs)        000
 __size_of_SET_EPWM_ON       (abs)        000
 __size_of___bmul            (abs)        000
 __size_of___lbdiv           (abs)        000
-__size_of_beep2             (abs)        000
 __size_of_comArr            (abs)        000
-__size_of_delay_x10ms       (abs)        000
 __size_of_eepromReadBlock   (abs)        000
 __size_of_eepromReadByte    (abs)        000
 __size_of_eepromWriteBlock  (abs)        000
@@ -467,39 +457,34 @@ __size_of_setState          (abs)        000
 __size_of_sys_init          (abs)        000
 __size_of_timerOut          (abs)        000
 __size_of_timer_init        (abs)        000
-_beep2                      text486      3C3
 _buffTag                    dataBANK0    025
-_comArr                     text499      33B
-_delay_x10ms                text489      3FB
-_eepromReadBlock            text492      3EA
-_eepromReadByte             text500      455
-_eepromWriteBlock           text487      3D8
-_eepromWriteByte            text491      2BD
+_comArr                     text450      302
+_eepromReadBlock            text443      39C
+_eepromReadByte             text451      3F7
+_eepromWriteBlock           text439      38A
+_eepromWriteByte            text442      284
 _exit                       init         00A
-_get_RFID                   text490      00B
-_gpio_init                  text503      41A
-_id_clear                   text484      2DE
-_id_replate                 text485      282
-_id_search                  text488      393
-_int_init                   text501      437
+_get_RFID                   text441      00B
+_gpio_init                  text454      3BC
+_id_clear                   text437      2A5
+_id_replate                 text438      249
+_id_search                  text440      35A
+_int_init                   text452      3D9
 _keyID                      bssBANK0     05D
 _main                       maintext     155
 _mtState                    bssBANK0     05C
-_setState                   text496      443
-_sys_init                   text493      44D
+_setState                   text447      3E5
+_sys_init                   text444      3EF
 _timeOut                    bssBANK0     058
 _timeTick                   bssBANK0     05A
-_timerOut                   text498      31C
-_timer_init                 text502      46B
-beep2@rep                   cstackCOMMON 075
-beep2@sel                   cstackCOMMON 076
+_timerOut                   text449      2E3
+_timer_init                 text453      40E
 btemp                       (abs)        07E
 comArr@arr1                 cstackCOMMON 078
 comArr@arr2                 cstackCOMMON 072
 comArr@i                    cstackCOMMON 079
 comArr@len1                 cstackCOMMON 073
 comArr@len2                 cstackCOMMON 074
-delay_x10ms@t               cstackCOMMON 074
 eepromReadBlock@addStart    cstackCOMMON 077
 eepromReadBlock@buff        cstackCOMMON 074
 eepromReadBlock@i           cstackCOMMON 078
@@ -512,7 +497,7 @@ eepromWriteBlock@i          cstackCOMMON 07A
 eepromWriteBlock@len        cstackCOMMON 077
 eepromWriteByte@EEAddr      cstackCOMMON 075
 eepromWriteByte@EEData      cstackCOMMON 072
-end_of_initialization       cinit        3C1
+end_of_initialization       cinit        388
 get_RFID@RF_serial_55bits   cstackBANK0  03E
 get_RFID@even_col           cstackBANK0  04A
 get_RFID@even_row           cstackBANK0  04B
@@ -522,7 +507,7 @@ get_RFID@i                  cstackBANK0  04D
 get_RFID@ii                 cstackBANK0  051
 get_RFID@j                  cstackBANK0  04C
 get_RFID@timeOutVal         cstackBANK0  04F
-i1l4128                                     
+i1l4125                                     
 id_clear@F1097              dataBANK0    020
 id_clear@idMax              cstackBANK0  042
 id_clear@idMin              cstackBANK0  048
@@ -533,8 +518,8 @@ id_replate@id               cstackCOMMON 07B
 id_search@buff              cstackCOMMON 07A
 id_search@i                 cstackBANK0  03F
 id_search@id_input          cstackBANK0  03E
-init_fetch                  inittext     40B
-init_ram                    inittext     40F
+init_fetch                  inittext     3AD
+init_ram                    inittext     3B1
 interrupt_function          intentry     004
 intlevel0                   functab      000
 intlevel1                   functab      000
@@ -547,160 +532,142 @@ l1594
 l1603                                       
 l1609                                       
 l3297                                       
-l4119                                       
-l4131                                       
-l4140                                       
-l4148                                       
-l4156                                       
-l4875                                       
-l4911                                       
-l5954                                       
-l5956                                       
-l5958                                       
-l5960                                       
-l5962                                       
-l5964                                       
-l5966                                       
-l5968                                       
-l5970                                       
-l5972                                       
-l5974                                       
-l5976                                       
-l5978                                       
-l5980                                       
-l5982                                       
-l5984                                       
-l5988                                       
-l6020                                       
-l6022                                       
-l6024                                       
-l6026                                       
-l6030                                       
-l6032                                       
-l6044                                       
-l6046                                       
-l6048                                       
-l6050                                       
-l6052                                       
-l6054                                       
-l6056                                       
-l6058                                       
-l6060                                       
-l6062                                       
-l6064                                       
-l6066                                       
-l6068                                       
-l6070                                       
-l6072                                       
-l6074                                       
-l6076                                       
-l6084                                       
-l6086                                       
-l6092                                       
-l6094                                       
-l6096                                       
-l6102                                       
-l6106                                       
-l6110                                       
-l6116                                       
-l6118                                       
-l6120                                       
-l6124                                       
-l6128                                       
-l6132                                       
-l6134                                       
-l6138                                       
-l6140                                       
-l6142                                       
-l6146                                       
-l6154                                       
-l6162                                       
-l6166                                       
-l6176                                       
-l6188                                       
-l6194                                       
-l6202                                       
-l6210                                       
-l6214                                       
-l6216                                       
-l6222                                       
-l6226                                       
-l6248                                       
-l6250                                       
-l6262                                       
-l6268                                       
-l6276                                       
-l6278                                       
-l6286                                       
-l6290                                       
-l6292                                       
-l6298                                       
-l6302                                       
-l6314                                       
-l6316                                       
-l6324                                       
-l6326                                       
-l6334                                       
-l6340                                       
-l6344                                       
-l6346                                       
-l6348                                       
-l6350                                       
-l6362                                       
-l6368                                       
-l6382                                       
-l6388                                       
-l6392                                       
-l6396                                       
-l6398                                       
-l6400                                       
-l6404                                       
-l6406                                       
-l6408                                       
-l6414                                       
-l6416                                       
-l6418                                       
-l6420                                       
-l6422                                       
-l6424                                       
-l6426                                       
-l6428                                       
-l6432                                       
-l6436                                       
-l6438                                       
-l6440                                       
-l6442                                       
-l6444                                       
-l6446                                       
-l6448                                       
-l6450                                       
-l6452                                       
-l6454                                       
-l6456                                       
-l6458                                       
-l6464                                       
-l6466                                       
-l6470                                       
-l6472                                       
-l6482                                       
-l6484                                       
-l6486                                       
-l6488                                       
-l6492                                       
-l6496                                       
-l6498                                       
-l6500                                       
-l6508                                       
-l6510                                       
-l6512                                       
-l6520                                       
-l6524                                       
-l6526                                       
-l6536                                       
-l6540                                       
-l6542                                       
-l6550                                       
-l6554                                       
+l4128                                       
+l4137                                       
+l4145                                       
+l4870                                       
+l4906                                       
+l5907                                       
+l5909                                       
+l5911                                       
+l5913                                       
+l5915                                       
+l5917                                       
+l5919                                       
+l5921                                       
+l5923                                       
+l5925                                       
+l5927                                       
+l5929                                       
+l5931                                       
+l5933                                       
+l5935                                       
+l5937                                       
+l5941                                       
+l5973                                       
+l5975                                       
+l5977                                       
+l5979                                       
+l5983                                       
+l5985                                       
+l5997                                       
+l5999                                       
+l6001                                       
+l6003                                       
+l6005                                       
+l6007                                       
+l6009                                       
+l6011                                       
+l6013                                       
+l6015                                       
+l6017                                       
+l6019                                       
+l6021                                       
+l6023                                       
+l6025                                       
+l6027                                       
+l6029                                       
+l6037                                       
+l6039                                       
+l6045                                       
+l6047                                       
+l6049                                       
+l6055                                       
+l6059                                       
+l6063                                       
+l6069                                       
+l6071                                       
+l6073                                       
+l6077                                       
+l6081                                       
+l6085                                       
+l6087                                       
+l6091                                       
+l6093                                       
+l6095                                       
+l6099                                       
+l6107                                       
+l6115                                       
+l6119                                       
+l6129                                       
+l6141                                       
+l6147                                       
+l6155                                       
+l6163                                       
+l6167                                       
+l6169                                       
+l6175                                       
+l6179                                       
+l6201                                       
+l6203                                       
+l6215                                       
+l6221                                       
+l6229                                       
+l6231                                       
+l6239                                       
+l6243                                       
+l6245                                       
+l6251                                       
+l6255                                       
+l6267                                       
+l6269                                       
+l6277                                       
+l6279                                       
+l6287                                       
+l6293                                       
+l6297                                       
+l6299                                       
+l6301                                       
+l6303                                       
+l6315                                       
+l6329                                       
+l6335                                       
+l6339                                       
+l6343                                       
+l6345                                       
+l6347                                       
+l6349                                       
+l6351                                       
+l6353                                       
+l6355                                       
+l6357                                       
+l6361                                       
+l6365                                       
+l6367                                       
+l6369                                       
+l6371                                       
+l6373                                       
+l6375                                       
+l6377                                       
+l6379                                       
+l6381                                       
+l6383                                       
+l6385                                       
+l6387                                       
+l6393                                       
+l6395                                       
+l6399                                       
+l6401                                       
+l6411                                       
+l6413                                       
+l6419                                       
+l6423                                       
+l6433                                       
+l6435                                       
+l6443                                       
+l6455                                       
+l6465                                       
+l6469                                       
 l790                                        
 l793                                        
 l796                                        
@@ -713,7 +680,7 @@ saved_w                     (abs)        07E
 setState@_tOut              cstackCOMMON 072
 setState@stt                cstackCOMMON 074
 start                       init         00A
-start_initialization        cinit        3AD
+start_initialization        cinit        374
 timerOut@CurTimer           cstackCOMMON 075
 timerOut@Logic              cstackCOMMON 074
 timerOut@time               cstackCOMMON 072

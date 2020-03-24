@@ -3120,14 +3120,6 @@
 [v id_replate@buff `*.0uc  1 p 1 1 ]
 "180
 } 0
-"187
-[v _beep2 `(v  1 e 0 0 ]
-{
-[v beep2@sel `uc  1 a 1 wreg ]
-[v beep2@sel `uc  1 a 1 wreg ]
-[v beep2@rep `uc  1 p 1 5 ]
-"194
-} 0
 "43 ms82_eeprom.c
 [v _eepromWriteBlock `(v  1 e 0 0 ]
 {
@@ -3150,13 +3142,6 @@
 [v id_search@id_input `*.0uc  1 a 1 wreg ]
 [v id_search@buff `*.0uc  1 p 1 10 ]
 "166
-} 0
-"59
-[v _delay_x10ms `(v  1 e 0 0 ]
-{
-[v delay_x10ms@t `uc  1 a 1 wreg ]
-[v delay_x10ms@t `uc  1 a 1 wreg ]
-"62
 } 0
 "20 rfid125.c
 [v _get_RFID `(uc  1 e 1 0 ]
