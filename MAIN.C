@@ -29,6 +29,9 @@
 asimoBz =  Coi su dung cuon day
 asimoRl = Su dung coi xe, bat tat bang relay
 asimoBzEx = Su dung coi roi, bat tat bang trans truc tiep
+
+define "asimoRl" & "asimoBzEx" => su dung coi roi
+define "asimoRl" => su dung relay
 */
 
 #include 	"main.h"
@@ -36,7 +39,7 @@ asimoBzEx = Su dung coi roi, bat tat bang trans truc tiep
 #define maxTag 5
 ///=============
 //#define asimoBz
-//#define asimoRl
+#define asimoRl
 #define asimoBzEx
 ///=============
 

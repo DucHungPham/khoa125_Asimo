@@ -1864,9 +1864,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "42
 }
 [; ;rfid125.c: 42: }
-[; ;rfid125.c: 43: while(timeOutVal<72 && i>0);
+[; ;rfid125.c: 43: while(timeOutVal<73 && i>0);
 "43
-[e $ && < _timeOutVal -> -> 72 `i `ui > -> _i `i -> 0 `i 94  ]
+[e $ && < _timeOutVal -> -> 73 `i `ui > -> _i `i -> 0 `i 94  ]
 [e :U 93 ]
 [; ;rfid125.c: 44: flag_RFID_last = 1;
 "44
@@ -1900,10 +1900,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ) -> -> 0 `i `uc ]
 [e $UE 91  ]
 [e :U 103 ]
-[; ;rfid125.c: 53: if(0==flag_RFID_last && timeOutVal<=72 ||
-[; ;rfid125.c: 54: 1==flag_RFID_last && timeOutVal>72)
+[; ;rfid125.c: 53: if(0==flag_RFID_last && timeOutVal<=73 ||
+[; ;rfid125.c: 54: 1==flag_RFID_last && timeOutVal>73)
 "54
-[e $ ! || && == -> 0 `i -> _flag_RFID_last `i <= _timeOutVal -> -> 72 `i `ui && == -> 1 `i -> _flag_RFID_last `i > _timeOutVal -> -> 72 `i `ui 104  ]
+[e $ ! || && == -> 0 `i -> _flag_RFID_last `i <= _timeOutVal -> -> 73 `i `ui && == -> 1 `i -> _flag_RFID_last `i > _timeOutVal -> -> 73 `i `ui 104  ]
 [; ;rfid125.c: 55: {
 "55
 {
@@ -1913,9 +1913,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;rfid125.c: 57: {
 "57
 {
-[; ;rfid125.c: 58: timeOutVal=timerOut(1,72);
+[; ;rfid125.c: 58: timeOutVal=timerOut(1,73);
 "58
-[e = _timeOutVal ( _timerOut (2 , -> -> 1 `i `uc -> -> 72 `i `ui ]
+[e = _timeOutVal ( _timerOut (2 , -> -> 1 `i `uc -> -> 73 `i `ui ]
 [; ;rfid125.c: 59: if(timeOutVal==0) return 0;
 "59
 [e $ ! == _timeOutVal -> -> 0 `i `ui 106  ]
@@ -1939,10 +1939,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "64
 [e :U 104 ]
 [; ;rfid125.c: 64: else
-[; ;rfid125.c: 65: if(0==flag_RFID_last && timeOutVal>72 ||
-[; ;rfid125.c: 66: 1==flag_RFID_last && timeOutVal<=72)
+[; ;rfid125.c: 65: if(0==flag_RFID_last && timeOutVal>73 ||
+[; ;rfid125.c: 66: 1==flag_RFID_last && timeOutVal<=73)
 "66
-[e $ ! || && == -> 0 `i -> _flag_RFID_last `i > _timeOutVal -> -> 72 `i `ui && == -> 1 `i -> _flag_RFID_last `i <= _timeOutVal -> -> 72 `i `ui 108  ]
+[e $ ! || && == -> 0 `i -> _flag_RFID_last `i > _timeOutVal -> -> 73 `i `ui && == -> 1 `i -> _flag_RFID_last `i <= _timeOutVal -> -> 73 `i `ui 108  ]
 [; ;rfid125.c: 67: {
 "67
 {
@@ -1952,9 +1952,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;rfid125.c: 69: {
 "69
 {
-[; ;rfid125.c: 70: timeOutVal=timerOut(0,72);
+[; ;rfid125.c: 70: timeOutVal=timerOut(0,73);
 "70
-[e = _timeOutVal ( _timerOut (2 , -> -> 0 `i `uc -> -> 72 `i `ui ]
+[e = _timeOutVal ( _timerOut (2 , -> -> 0 `i `uc -> -> 73 `i `ui ]
 [; ;rfid125.c: 71: if(timeOutVal==0) return 0;
 "71
 [e $ ! == _timeOutVal -> -> 0 `i `ui 110  ]
@@ -2047,10 +2047,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ) -> -> 0 `i `uc ]
 [e $UE 91  ]
 [e :U 116 ]
-[; ;rfid125.c: 97: if(0==flag_RFID_last && timeOutVal<=72 ||
-[; ;rfid125.c: 98: 1==flag_RFID_last && timeOutVal>72)
+[; ;rfid125.c: 97: if(0==flag_RFID_last && timeOutVal<=73 ||
+[; ;rfid125.c: 98: 1==flag_RFID_last && timeOutVal>73)
 "98
-[e $ ! || && == -> 0 `i -> _flag_RFID_last `i <= _timeOutVal -> -> 72 `i `ui && == -> 1 `i -> _flag_RFID_last `i > _timeOutVal -> -> 72 `i `ui 117  ]
+[e $ ! || && == -> 0 `i -> _flag_RFID_last `i <= _timeOutVal -> -> 73 `i `ui && == -> 1 `i -> _flag_RFID_last `i > _timeOutVal -> -> 73 `i `ui 117  ]
 [; ;rfid125.c: 99: {
 "99
 {
@@ -2060,9 +2060,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;rfid125.c: 101: {
 "101
 {
-[; ;rfid125.c: 102: timeOutVal=timerOut(1,72);
+[; ;rfid125.c: 102: timeOutVal=timerOut(1,73);
 "102
-[e = _timeOutVal ( _timerOut (2 , -> -> 1 `i `uc -> -> 72 `i `ui ]
+[e = _timeOutVal ( _timerOut (2 , -> -> 1 `i `uc -> -> 73 `i `ui ]
 [; ;rfid125.c: 103: if(timeOutVal==0) return 0;
 "103
 [e $ ! == _timeOutVal -> -> 0 `i `ui 119  ]
@@ -2089,10 +2089,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "109
 [e :U 117 ]
 [; ;rfid125.c: 109: else
-[; ;rfid125.c: 110: if(0==flag_RFID_last && timeOutVal>72 ||
-[; ;rfid125.c: 111: 1==flag_RFID_last && timeOutVal<=72)
+[; ;rfid125.c: 110: if(0==flag_RFID_last && timeOutVal>73 ||
+[; ;rfid125.c: 111: 1==flag_RFID_last && timeOutVal<=73)
 "111
-[e $ ! || && == -> 0 `i -> _flag_RFID_last `i > _timeOutVal -> -> 72 `i `ui && == -> 1 `i -> _flag_RFID_last `i <= _timeOutVal -> -> 72 `i `ui 121  ]
+[e $ ! || && == -> 0 `i -> _flag_RFID_last `i > _timeOutVal -> -> 73 `i `ui && == -> 1 `i -> _flag_RFID_last `i <= _timeOutVal -> -> 73 `i `ui 121  ]
 [; ;rfid125.c: 112: {
 "112
 {

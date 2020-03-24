@@ -1052,7 +1052,7 @@ void eepromClear(void);
 # 5 "ms82_pwm.h"
 void SET_EPWM_ON(void);
 
-# 43 "MAIN.C"
+# 46 "MAIN.C"
 unsigned int timeOut , timeTick = 0;
 unsigned char mtState = 0;
 unsigned char keyID[5] = {0, 0, 0, 0, 0};
@@ -1063,20 +1063,27 @@ unsigned char buffTag[25] = {0, 0, 0x11, 0x0b, 0x4f,
 0, 0, 0x7e, 0x51, 0xe6,
 };
 
-# 59
+# 62
 void delay_x10ms(unsigned char t) {
 while (t--)
 _delay((unsigned long)((10)*(8000000/4000.0)));
 }
 void beep(unsigned char delay, unsigned char rep) {
 
-# 86
+# 82
+while (rep--) {
+RC0 = 1;
+delay_x10ms(delay);
+RC0 = 0;
+delay_x10ms(20);
+}
+
 }
 
 void interrupt ISR(void)
 {
 
-# 149
+# 152
 }
 
 
@@ -1152,7 +1159,7 @@ gpio_init();
 timer_init();
 int_init();
 
-# 228
+# 231
 eepromWriteByte(0xFF, 0xAA);
 eepromWriteByte(0xFF, 0xAA);
 
@@ -1181,7 +1188,7 @@ eepromWriteByte(0x06 + 4, 0xf8);
 }
 eepromReadBlock(0x06, buffTag, 5 * 5);
 
-setState(1, 12);
+setState(1, 15);
 
 
 
@@ -1208,7 +1215,9 @@ id_clear(2, 5);
 setState(3, 0);
 tmp = 1;
 
-# 288
+# 289
+beep2(0, 3);
+
 }
 
 break;
@@ -1224,7 +1233,9 @@ id_clear(2, 5);
 setState(3, 0);
 tmp = 1;
 
-# 308
+# 309
+beep2(0, 3);
+
 }
 else if (idop == 2 && idState == 0) {
 
@@ -1232,14 +1243,16 @@ id_clear(3, 5);
 setState(5, 0);
 tmp = 2;
 
-# 320
+# 321
+beep2(1, 2);
+
 }
 break;
 case 3:
 
 if (idState == 0) {
 
-# 331
+# 334
 if ( idop != 1) {
 tmp++;
 
@@ -1247,14 +1260,18 @@ if (tmp <= 5) {
 id_replate(tmp, keyID, buffTag);
 timeTick = 0;
 
-# 343
-}
-} else {
+# 344
+beep2(1, 2);
 
 }
 } else {
 
-# 355
+}
+} else {
+
+# 356
+beep2(0, 1);
+
 }
 break;
 case 5:
@@ -1267,14 +1284,18 @@ if (tmp <= 5) {
 id_replate(tmp, keyID, buffTag);
 timeTick = 0;
 
-# 373
-}
-} else {
+# 374
+beep2(1, 2);
 
 }
 } else {
 
-# 384
+}
+} else {
+
+# 385
+beep2(0, 1);
+
 }
 break;
 
@@ -1314,7 +1335,15 @@ break;
 if (mtState == 0) RA3 = 1;
 else RA3 = 0;
 
-# 471
+# 433
+if (mtState == 2) {
+
+RC0 = 1;
+} else {
+RC0 = 0;
+};
+
+# 474
 timeTick++;
 
 }

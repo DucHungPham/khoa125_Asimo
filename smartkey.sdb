@@ -1782,7 +1782,7 @@
 [s S4157 . 1 `uc 1 PSINKC 1 0 :6:0 
 ]
 [u S4159 . 1 `S1004 1 . 1 0 ]
-"89 MAIN.C
+"92 MAIN.C
 [v F1081 `(v  1 t 0 ]
 "5 D:\OneDrive\SmarRF\MCU\MC82\IDE\ORIGINIDE_V2.0.9\Program Files (x86)\HI-TECH Software\PICC\9.83\sources\abdiv.c
 [v ___abdiv `(c  1 e 1 0 ]
@@ -1884,25 +1884,25 @@
 [v ___fttoee `(f  1 e 3 0 ]
 "132
 [v ___fltoee `(d  1 e 3 0 ]
-"59 MAIN.C
+"62 MAIN.C
 [v _delay_x10ms `(v  1 e 0 0 ]
-"63
+"66
 [v _beep `(v  1 e 0 0 ]
-"89
+"92
 [v _ISR `I(v  1 e 0 0 ]
-"152
+"155
 [v _setState `(v  1 e 0 0 ]
-"159
+"162
 [v _id_search `(uc  1 e 1 0 ]
-"167
+"170
 [v _id_replate `(v  1 e 0 0 ]
-"181
+"184
 [v _id_clear `(v  1 e 0 0 ]
-"187
+"190
 [v _beep2 `(v  1 e 0 0 ]
-"196
+"199
 [v _buzDelay `(v  1 e 0 0 ]
-"210
+"213
 [v _main `(v  1 e 0 0 ]
 "7 ms82_eeprom.c
 [v _eepromReadByte `(uc  1 e 1 0 ]
@@ -3080,45 +3080,53 @@
 [v _SFR9E `VEuc  1 e 1 @158 ]
 "1093
 [v _SFR9F `VEuc  1 e 1 @159 ]
-"43 MAIN.C
+"46 MAIN.C
 [v _timeOut `ui  1 e 2 0 ]
 [v _timeTick `ui  1 e 2 0 ]
-"44
+"47
 [v _mtState `uc  1 e 1 0 ]
-"45
+"48
 [v _keyID `[5]uc  1 e 5 0 ]
-"46
+"49
 [v _buffTag `[25]uc  1 e 25 0 ]
-"210
+"213
 [v _main `(v  1 e 0 0 ]
 {
-"212
+"215
 [v main@idop `uc  1 a 1 25 ]
 [v main@tmp `uc  1 a 1 24 ]
 [v main@idState `uc  1 a 1 23 ]
-"475
+"478
 } 0
-"181
+"184
 [v _id_clear `(v  1 e 0 0 ]
 {
 [v id_clear@idMin `uc  1 a 1 wreg ]
-"182
+"185
 [v id_clear@tmp `[5]uc  1 a 5 5 ]
-"181
+"184
 [v id_clear@idMin `uc  1 a 1 wreg ]
 [v id_clear@idMax `uc  1 p 1 4 ]
-"182
-[v id_clear@F1097 `[5]uc  1 s 5 F1097 ]
 "185
+[v id_clear@F1097 `[5]uc  1 s 5 F1097 ]
+"188
 } 0
-"167
+"170
 [v _id_replate `(v  1 e 0 0 ]
 {
 [v id_replate@id `uc  1 a 1 wreg ]
 [v id_replate@id `uc  1 a 1 wreg ]
 [v id_replate@Cont `*.0uc  1 p 1 0 ]
 [v id_replate@buff `*.0uc  1 p 1 1 ]
-"180
+"183
+} 0
+"190
+[v _beep2 `(v  1 e 0 0 ]
+{
+[v beep2@sel `uc  1 a 1 wreg ]
+[v beep2@sel `uc  1 a 1 wreg ]
+[v beep2@rep `uc  1 p 1 5 ]
+"197
 } 0
 "43 ms82_eeprom.c
 [v _eepromWriteBlock `(v  1 e 0 0 ]
@@ -3132,16 +3140,23 @@
 [v eepromWriteBlock@len `uc  1 p 1 7 ]
 "49
 } 0
-"159 MAIN.C
+"162 MAIN.C
 [v _id_search `(uc  1 e 1 0 ]
 {
 [v id_search@id_input `*.0uc  1 a 1 wreg ]
-"160
+"163
 [v id_search@i `uc  1 a 1 1 ]
-"159
+"162
 [v id_search@id_input `*.0uc  1 a 1 wreg ]
 [v id_search@buff `*.0uc  1 p 1 10 ]
-"166
+"169
+} 0
+"62
+[v _delay_x10ms `(v  1 e 0 0 ]
+{
+[v delay_x10ms@t `uc  1 a 1 wreg ]
+[v delay_x10ms@t `uc  1 a 1 wreg ]
+"65
 } 0
 "20 rfid125.c
 [v _get_RFID `(uc  1 e 1 0 ]
@@ -3213,13 +3228,13 @@
 [v ___bmul@multiplicand `uc  1 p 1 2 ]
 "13
 } 0
-"152 MAIN.C
+"155 MAIN.C
 [v _setState `(v  1 e 0 0 ]
 {
 [v setState@stt `uc  1 a 1 wreg ]
 [v setState@stt `uc  1 a 1 wreg ]
 [v setState@_tOut `ui  1 p 2 2 ]
-"157
+"160
 } 0
 "11 ms82_pwm.c
 [v _SET_EPWM_ON `(v  1 e 0 0 ]
@@ -3275,8 +3290,8 @@
 {
 "41
 } 0
-"89 MAIN.C
+"92 MAIN.C
 [v _ISR `I(v  1 e 0 0 ]
 {
-"149
+"152
 } 0
