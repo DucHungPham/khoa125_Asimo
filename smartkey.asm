@@ -62,9 +62,9 @@
 		DECR 	4DH,1 			//001F 	0DCD
 
 		//;rfid125.c: 42: }
-		//;rfid125.c: 43: while(timeOutVal<73 && i>0);
+		//;rfid125.c: 43: while(timeOutVal<80 && i>0);
 		SUBWR 	50H,0 			//0020 	0C50
-		LDWI 	49H 			//0021 	2A49
+		LDWI 	50H 			//0021 	2A50
 		BTSC 	STATUS,2 		//0022 	1503
 		SUBWR 	4FH,0 			//0023 	0C4F
 		ORG		0024H
@@ -103,14 +103,14 @@
 		BTSC 	STATUS,2 		//0034 	1503
 		RETW 	0H 			//0035 	2100
 
-		//;rfid125.c: 53: if(0==flag_RFID_last && timeOutVal<=73 ||
-		//;rfid125.c: 54: 1==flag_RFID_last && timeOutVal>73)
+		//;rfid125.c: 53: if(0==flag_RFID_last && timeOutVal<=80 ||
+		//;rfid125.c: 54: 1==flag_RFID_last && timeOutVal>80)
 		LDR 	4EH,1 			//0036 	08CE
 		BTSS 	STATUS,2 		//0037 	1D03
 		LJUMP 	40H 			//0038 	3840
 		LDWI 	0H 			//0039 	2A00
 		SUBWR 	50H,0 			//003A 	0C50
-		LDWI 	4AH 			//003B 	2A4A
+		LDWI 	51H 			//003B 	2A51
 		ORG		003CH
 		BTSC 	STATUS,2 		//003C 	1503
 		SUBWR 	4FH,0 			//003D 	0C4F
@@ -121,7 +121,7 @@
 		LDWI 	0H 			//0042 	2A00
 		SUBWR 	50H,0 			//0043 	0C50
 		ORG		0044H
-		LDWI 	4AH 			//0044 	2A4A
+		LDWI 	51H 			//0044 	2A51
 		BTSC 	STATUS,2 		//0045 	1503
 		SUBWR 	4FH,0 			//0046 	0C4F
 		BTSS 	STATUS,0 		//0047 	1C03
@@ -135,8 +135,8 @@
 		ORG		004CH
 
 		//;rfid125.c: 57: {
-		//;rfid125.c: 58: timeOutVal=timerOut(1,73);
-		LDWI 	49H 			//004C 	2A49
+		//;rfid125.c: 58: timeOutVal=timerOut(1,80);
+		LDWI 	50H 			//004C 	2A50
 		STR 	72H 			//004D 	01F2
 		LDWI 	1H 			//004E 	2A01
 		CLRR 	73H 			//004F 	0173
@@ -159,15 +159,15 @@
 		LJUMP 	79H 			//0056 	3879
 
 		//;rfid125.c: 64: else
-		//;rfid125.c: 65: if(0==flag_RFID_last && timeOutVal>73 ||
-		//;rfid125.c: 66: 1==flag_RFID_last && timeOutVal<=73)
+		//;rfid125.c: 65: if(0==flag_RFID_last && timeOutVal>80 ||
+		//;rfid125.c: 66: 1==flag_RFID_last && timeOutVal<=80)
 		LDR 	4EH,1 			//0057 	08CE
 		BTSS 	STATUS,2 		//0058 	1D03
 		LJUMP 	61H 			//0059 	3861
 		LDWI 	0H 			//005A 	2A00
 		SUBWR 	50H,0 			//005B 	0C50
 		ORG		005CH
-		LDWI 	4AH 			//005C 	2A4A
+		LDWI 	51H 			//005C 	2A51
 		BTSC 	STATUS,2 		//005D 	1503
 		SUBWR 	4FH,0 			//005E 	0C4F
 		BTSC 	STATUS,0 		//005F 	1403
@@ -177,7 +177,7 @@
 		LDWI 	0H 			//0063 	2A00
 		ORG		0064H
 		SUBWR 	50H,0 			//0064 	0C50
-		LDWI 	4AH 			//0065 	2A4A
+		LDWI 	51H 			//0065 	2A51
 		BTSC 	STATUS,2 		//0066 	1503
 		SUBWR 	4FH,0 			//0067 	0C4F
 		BTSC 	STATUS,0 		//0068 	1403
@@ -191,8 +191,8 @@
 		LJUMP 	75H 			//006C 	3875
 
 		//;rfid125.c: 69: {
-		//;rfid125.c: 70: timeOutVal=timerOut(0,73);
-		LDWI 	49H 			//006D 	2A49
+		//;rfid125.c: 70: timeOutVal=timerOut(0,80);
+		LDWI 	50H 			//006D 	2A50
 		STR 	72H 			//006E 	01F2
 		LDWI 	0H 			//006F 	2A00
 		CLRR 	73H 			//0070 	0173
@@ -265,15 +265,15 @@
 		BTSC 	STATUS,2 		//0090 	1503
 		RETW 	0H 			//0091 	2100
 
-		//;rfid125.c: 97: if(0==flag_RFID_last && timeOutVal<=73 ||
-		//;rfid125.c: 98: 1==flag_RFID_last && timeOutVal>73)
+		//;rfid125.c: 97: if(0==flag_RFID_last && timeOutVal<=80 ||
+		//;rfid125.c: 98: 1==flag_RFID_last && timeOutVal>80)
 		LDR 	4EH,1 			//0092 	08CE
 		BTSS 	STATUS,2 		//0093 	1D03
 		ORG		0094H
 		LJUMP 	9CH 			//0094 	389C
 		LDWI 	0H 			//0095 	2A00
 		SUBWR 	50H,0 			//0096 	0C50
-		LDWI 	4AH 			//0097 	2A4A
+		LDWI 	51H 			//0097 	2A51
 		BTSC 	STATUS,2 		//0098 	1503
 		SUBWR 	4FH,0 			//0099 	0C4F
 		BTSS 	STATUS,0 		//009A 	1C03
@@ -283,7 +283,7 @@
 		LJUMP 	B7H 			//009D 	38B7
 		LDWI 	0H 			//009E 	2A00
 		SUBWR 	50H,0 			//009F 	0C50
-		LDWI 	4AH 			//00A0 	2A4A
+		LDWI 	51H 			//00A0 	2A51
 		BTSC 	STATUS,2 		//00A1 	1503
 		SUBWR 	4FH,0 			//00A2 	0C4F
 		BTSS 	STATUS,0 		//00A3 	1C03
@@ -297,8 +297,8 @@
 		LJUMP 	B0H 			//00A7 	38B0
 
 		//;rfid125.c: 101: {
-		//;rfid125.c: 102: timeOutVal=timerOut(1,73);
-		LDWI 	49H 			//00A8 	2A49
+		//;rfid125.c: 102: timeOutVal=timerOut(1,80);
+		LDWI 	50H 			//00A8 	2A50
 		STR 	72H 			//00A9 	01F2
 		LDWI 	1H 			//00AA 	2A01
 		CLRR 	73H 			//00AB 	0173
@@ -328,15 +328,15 @@
 		LJUMP 	D8H 			//00B6 	38D8
 
 		//;rfid125.c: 109: else
-		//;rfid125.c: 110: if(0==flag_RFID_last && timeOutVal>73 ||
-		//;rfid125.c: 111: 1==flag_RFID_last && timeOutVal<=73)
+		//;rfid125.c: 110: if(0==flag_RFID_last && timeOutVal>80 ||
+		//;rfid125.c: 111: 1==flag_RFID_last && timeOutVal<=80)
 		LDR 	4EH,1 			//00B7 	08CE
 		BTSS 	STATUS,2 		//00B8 	1D03
 		LJUMP 	C1H 			//00B9 	38C1
 		LDWI 	0H 			//00BA 	2A00
 		SUBWR 	50H,0 			//00BB 	0C50
 		ORG		00BCH
-		LDWI 	4AH 			//00BC 	2A4A
+		LDWI 	51H 			//00BC 	2A51
 		BTSC 	STATUS,2 		//00BD 	1503
 		SUBWR 	4FH,0 			//00BE 	0C4F
 		BTSC 	STATUS,0 		//00BF 	1403
@@ -346,7 +346,7 @@
 		LDWI 	0H 			//00C3 	2A00
 		ORG		00C4H
 		SUBWR 	50H,0 			//00C4 	0C50
-		LDWI 	4AH 			//00C5 	2A4A
+		LDWI 	51H 			//00C5 	2A51
 		BTSC 	STATUS,2 		//00C6 	1503
 		SUBWR 	4FH,0 			//00C7 	0C4F
 		BTSC 	STATUS,0 		//00C8 	1403
@@ -673,8 +673,8 @@
 		ORG		018CH
 		LCALL 	3EAH 			//018C 	33EA
 
-		//;MAIN.C: 259: setState(1, 15);
-		LDWI 	FH 			//018D 	2A0F
+		//;MAIN.C: 259: setState(1, 70);
+		LDWI 	46H 			//018D 	2A46
 		STR 	72H 			//018E 	01F2
 		LDWI 	1H 			//018F 	2A01
 		CLRR 	73H 			//0190 	0173
@@ -997,8 +997,8 @@
 		ORG		0254H
 		LJUMP 	271H 			//0254 	3A71
 
-		//;MAIN.C: 407: setState(2, 60);
-		LDWI 	3CH 			//0255 	2A3C
+		//;MAIN.C: 407: setState(2, 250);
+		LDWI 	FAH 			//0255 	2AFA
 		STR 	72H 			//0256 	01F2
 		LDWI 	2H 			//0257 	2A02
 		CLRR 	73H 			//0258 	0173
@@ -1007,8 +1007,8 @@
 		//;MAIN.C: 409: break;
 		LJUMP 	271H 			//025A 	3A71
 
-		//;MAIN.C: 411: setState(6, 7);
-		LDWI 	7H 			//025B 	2A07
+		//;MAIN.C: 411: setState(6, 40);
+		LDWI 	28H 			//025B 	2A28
 		ORG		025CH
 		STR 	72H 			//025C 	01F2
 		LDWI 	6H 			//025D 	2A06
@@ -1041,35 +1041,38 @@
 		LJUMP 	271H 			//0270 	3A71
 
 		//;MAIN.C: 420: }
-		//;MAIN.C: 423: if (mtState == 0) RA3 = 1;
+		//;MAIN.C: 423: if (mtState == 0)
 		LDR 	5CH,1 			//0271 	08DC
 		BTSS 	STATUS,2 		//0272 	1D03
 		LJUMP 	276H 			//0273 	3A76
 		ORG		0274H
+
+		//;MAIN.C: 424: RA3 = 1;
 		BSR 	5H,3 			//0274 	1985
 		LJUMP 	277H 			//0275 	3A77
 
-		//;MAIN.C: 424: else RA3 = 0;
+		//;MAIN.C: 425: else
+		//;MAIN.C: 426: RA3 = 0;
 		BCR 	5H,3 			//0276 	1185
 
-		//;MAIN.C: 433: if (mtState == 2) {
+		//;MAIN.C: 435: if (mtState == 2) {
 		LDR 	5CH,0 			//0277 	085C
 		XORWI 	2H 			//0278 	2602
 		BTSS 	STATUS,2 		//0279 	1D03
 		LJUMP 	27DH 			//027A 	3A7D
 
-		//;MAIN.C: 435: RC0 = 1;
+		//;MAIN.C: 437: RC0 = 1;
 		BSR 	7H,0 			//027B 	1807
 		ORG		027CH
 
-		//;MAIN.C: 436: } else {
+		//;MAIN.C: 438: } else {
 		LJUMP 	27EH 			//027C 	3A7E
 
-		//;MAIN.C: 437: RC0 = 0;
+		//;MAIN.C: 439: RC0 = 0;
 		BCR 	7H,0 			//027D 	1007
 
-		//;MAIN.C: 438: };
-		//;MAIN.C: 474: timeTick++;
+		//;MAIN.C: 440: };
+		//;MAIN.C: 476: timeTick++;
 		INCR	5AH,1 			//027E 	09DA
 		BTSC 	STATUS,2 		//027F 	1503
 		INCR	5BH,1 			//0280 	09DB

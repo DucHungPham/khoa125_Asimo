@@ -30,10 +30,10 @@
 #define tOut_Open	0
 
 #define _PwOn	1
-#define tOut_PwOn	15	//~5.0s
+#define tOut_PwOn	70	//~5.0s
 
 #define _Alert		2
-#define tOut_Alert  60	//~20s
+#define tOut_Alert  250	//~20s
 #define add_Alert 0x08
 
 #define _subTagProg	3
@@ -43,9 +43,9 @@
 #define _norTagProg		5
 
 #define _rProg		6
-#define tOut_rProg	7 //~3s
+#define tOut_rProg	40 //~3s
 
-#define _PwTp		7
+#define _PwTp		7	// password typing
 #define tOut_PwTp	1
 
 #define _firstProg	8

@@ -1188,7 +1188,7 @@ eepromWriteByte(0x06 + 4, 0xf8);
 }
 eepromReadBlock(0x06, buffTag, 5 * 5);
 
-setState(1, 15);
+setState(1, 70);
 
 
 
@@ -1316,11 +1316,11 @@ if ((timeOut != 0) && ( timeTick > timeOut)) {
 switch (mtState) {
 
 case 1:
-setState(2, 60);
+setState(2, 250);
 
 break;
 case 2:
-setState(6, 7);
+setState(6, 40);
 break;
 case 6:
 setState(2, 0);
@@ -1332,10 +1332,12 @@ break;
 }
 
 
-if (mtState == 0) RA3 = 1;
-else RA3 = 0;
+if (mtState == 0)
+RA3 = 1;
+else
+RA3 = 0;
 
-# 433
+# 435
 if (mtState == 2) {
 
 RC0 = 1;
@@ -1343,7 +1345,7 @@ RC0 = 1;
 RC0 = 0;
 };
 
-# 474
+# 476
 timeTick++;
 
 }

@@ -5,8 +5,8 @@
 
 #define RFID_ID       RA5
 
-#define timeMax   150//600   		max time of signal				
-#define timeMin   73//290 	min time of signal
+#define timeMax   150//600   		max time of signal			150	
+#define timeMin   80//290 	min time of signal 72
   						
 #define CntH	0
 #define CntL 	TMR0

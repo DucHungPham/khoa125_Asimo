@@ -1090,7 +1090,7 @@ if(timeOutVal==0) return 0;
 
 i--;
 }
-while(timeOutVal<73 && i>0);
+while(timeOutVal<80 && i>0);
 flag_RFID_last = 1;
 i = 0;
 while(i<64)
@@ -1100,24 +1100,24 @@ for(ii=0;ii<9;ii++)
 timeOutVal=timerOut(flag_RFID_last,150);
 if(timeOutVal==0) return 0;
 
-if(0==flag_RFID_last && timeOutVal<=73 ||
-1==flag_RFID_last && timeOutVal>73)
+if(0==flag_RFID_last && timeOutVal<=80 ||
+1==flag_RFID_last && timeOutVal>80)
 {
 if(!flag_RFID_last)
 {
-timeOutVal=timerOut(1,73);
+timeOutVal=timerOut(1,80);
 if(timeOutVal==0) return 0;
 }
 flag_RFID_last = 0;
 i++;
 }
 else
-if(0==flag_RFID_last && timeOutVal>73 ||
-1==flag_RFID_last && timeOutVal<=73)
+if(0==flag_RFID_last && timeOutVal>80 ||
+1==flag_RFID_last && timeOutVal<=80)
 {
 if(flag_RFID_last)
 {
-timeOutVal=timerOut(0,73);
+timeOutVal=timerOut(0,80);
 if(timeOutVal==0) return 0;
 }
 flag_RFID_last = 1;
@@ -1144,12 +1144,12 @@ i = ii/5;
 timeOutVal=timerOut(flag_RFID_last,150);
 if(timeOutVal==0) return 0;
 
-if(0==flag_RFID_last && timeOutVal<=73 ||
-1==flag_RFID_last && timeOutVal>73)
+if(0==flag_RFID_last && timeOutVal<=80 ||
+1==flag_RFID_last && timeOutVal>80)
 {
 if(!flag_RFID_last)
 {
-timeOutVal=timerOut(1,73);
+timeOutVal=timerOut(1,80);
 if(timeOutVal==0) return 0;
 }
 flag_RFID_last = 0;
@@ -1157,8 +1157,8 @@ RF_serial_55bits[i] <<= 1;
 RF_serial_55bits[i] |= 0x01;
 }
 else
-if(0==flag_RFID_last && timeOutVal>73 ||
-1==flag_RFID_last && timeOutVal<=73)
+if(0==flag_RFID_last && timeOutVal>80 ||
+1==flag_RFID_last && timeOutVal<=80)
 {
 if(flag_RFID_last)
 {

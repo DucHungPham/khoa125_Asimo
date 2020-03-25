@@ -2237,9 +2237,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MAIN.C: 257: eepromReadBlock(0x06, buffTag, 5 * 5);
 "257
 [e ( _eepromReadBlock (3 , , -> -> 6 `i `uc &U _buffTag -> * -> 5 `i -> 5 `i `uc ]
-[; ;MAIN.C: 259: setState(1, 15);
+[; ;MAIN.C: 259: setState(1, 70);
 "259
-[e ( _setState (2 , -> -> 1 `i `uc -> -> 15 `i `ui ]
+[e ( _setState (2 , -> -> 1 `i `uc -> -> 70 `i `ui ]
 [; ;MAIN.C: 263: tmp = 0;
 "263
 [e = _tmp -> -> 0 `i `uc ]
@@ -2525,18 +2525,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MAIN.C: 406: case 1:
 "406
 [e :U 155 ]
-[; ;MAIN.C: 407: setState(2, 60);
+[; ;MAIN.C: 407: setState(2, 250);
 "407
-[e ( _setState (2 , -> -> 2 `i `uc -> -> 60 `i `ui ]
+[e ( _setState (2 , -> -> 2 `i `uc -> -> 250 `i `ui ]
 [; ;MAIN.C: 409: break;
 "409
 [e $U 153  ]
 [; ;MAIN.C: 410: case 2:
 "410
 [e :U 156 ]
-[; ;MAIN.C: 411: setState(6, 7);
+[; ;MAIN.C: 411: setState(6, 40);
 "411
-[e ( _setState (2 , -> -> 6 `i `uc -> -> 7 `i `ui ]
+[e ( _setState (2 , -> -> 6 `i `uc -> -> 40 `i `ui ]
 [; ;MAIN.C: 412: break;
 "412
 [e $U 153  ]
@@ -2565,47 +2565,51 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 152 ]
 [; ;MAIN.C: 420: }
-[; ;MAIN.C: 423: if (mtState == 0) RA3 = 1;
+[; ;MAIN.C: 423: if (mtState == 0)
 "423
 [e $ ! == -> _mtState `i -> 0 `i 158  ]
+[; ;MAIN.C: 424: RA3 = 1;
+"424
 [e = _RA3 -> -> 1 `i `b ]
 [e $U 159  ]
-"424
+"425
 [e :U 158 ]
-[; ;MAIN.C: 424: else RA3 = 0;
+[; ;MAIN.C: 425: else
+[; ;MAIN.C: 426: RA3 = 0;
+"426
 [e = _RA3 -> -> 0 `i `b ]
 [e :U 159 ]
-[; ;MAIN.C: 433: if (mtState == 2) {
-"433
+[; ;MAIN.C: 435: if (mtState == 2) {
+"435
 [e $ ! == -> _mtState `i -> 2 `i 160  ]
 {
-[; ;MAIN.C: 435: RC0 = 1;
-"435
+[; ;MAIN.C: 437: RC0 = 1;
+"437
 [e = _RC0 -> -> 1 `i `b ]
-"436
+"438
 }
-[; ;MAIN.C: 436: } else {
+[; ;MAIN.C: 438: } else {
 [e $U 161  ]
 [e :U 160 ]
 {
-[; ;MAIN.C: 437: RC0 = 0;
-"437
+[; ;MAIN.C: 439: RC0 = 0;
+"439
 [e = _RC0 -> -> 0 `i `b ]
-"438
+"440
 }
 [e :U 161 ]
-[; ;MAIN.C: 438: };
-[; ;MAIN.C: 474: timeTick++;
-"474
-[e ++ _timeTick -> -> 1 `i `ui ]
+[; ;MAIN.C: 440: };
+[; ;MAIN.C: 476: timeTick++;
 "476
+[e ++ _timeTick -> -> 1 `i `ui ]
+"478
 }
 [e :U 123 ]
 "265
 [e $U 124  ]
 [e :U 125 ]
-[; ;MAIN.C: 476: }
 [; ;MAIN.C: 478: }
-"478
+[; ;MAIN.C: 480: }
+"480
 [e :UE 121 ]
 }

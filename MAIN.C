@@ -420,8 +420,10 @@ void main(void)
 		}
 
 //============Set
-		if (mtState == _Open) swMainOut = 1;
-		else swMainOut = 0;
+		if (mtState == _Open) 
+        swMainOut = 1;
+		else 
+        swMainOut = 0;
 
 		// __delay_ms(100);
 

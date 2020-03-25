@@ -1228,8 +1228,8 @@ l6462:
 	line	259
 	
 l6464:	
-;MAIN.C: 259: setState(1, 15);
-	movlw	0Fh
+;MAIN.C: 259: setState(1, 70);
+	movlw	046h
 	movwf	(?_setState)
 	clrf	(?_setState+1)
 	movlw	(01h)
@@ -1724,8 +1724,8 @@ u1720:
 	line	407
 	
 l6562:	
-;MAIN.C: 407: setState(2, 60);
-	movlw	03Ch
+;MAIN.C: 407: setState(2, 250);
+	movlw	0FAh
 	movwf	(?_setState)
 	clrf	(?_setState+1)
 	movlw	(02h)
@@ -1736,8 +1736,8 @@ l6562:
 	line	411
 	
 l6564:	
-;MAIN.C: 411: setState(6, 7);
-	movlw	07h
+;MAIN.C: 411: setState(6, 40);
+	movlw	028h
 	movwf	(?_setState)
 	clrf	(?_setState+1)
 	movlw	(06h)
@@ -1786,7 +1786,7 @@ l6570:
 	
 l6572:	
 ;MAIN.C: 420: }
-;MAIN.C: 423: if (mtState == 0) RA3 = 1;
+;MAIN.C: 423: if (mtState == 0)
 	movf	(_mtState),f
 	skipz
 	goto	u1731
@@ -1794,19 +1794,23 @@ l6572:
 u1731:
 	goto	l4203
 u1730:
-	
-l6574:	
-	bsf	(43/8),(43)&7
-	goto	l6576
 	line	424
 	
+l6574:	
+;MAIN.C: 424: RA3 = 1;
+	bsf	(43/8),(43)&7
+	goto	l6576
+	line	425
+	
 l4203:	
-;MAIN.C: 424: else RA3 = 0;
+	line	426
+;MAIN.C: 425: else
+;MAIN.C: 426: RA3 = 0;
 	bcf	(43/8),(43)&7
-	line	433
+	line	435
 	
 l6576:	
-;MAIN.C: 433: if (mtState == 2) {
+;MAIN.C: 435: if (mtState == 2) {
 	movf	(_mtState),w
 	xorlw	02h
 	skipz
@@ -1815,24 +1819,24 @@ l6576:
 u1741:
 	goto	l4205
 u1740:
-	line	435
+	line	437
 	
 l6578:	
-;MAIN.C: 435: RC0 = 1;
+;MAIN.C: 437: RC0 = 1;
 	bsf	(56/8),(56)&7
-	line	436
-;MAIN.C: 436: } else {
+	line	438
+;MAIN.C: 438: } else {
 	goto	l6580
 	
 l4205:	
-	line	437
-;MAIN.C: 437: RC0 = 0;
+	line	439
+;MAIN.C: 439: RC0 = 0;
 	bcf	(56/8),(56)&7
-	line	474
+	line	476
 	
 l6580:	
-;MAIN.C: 438: };
-;MAIN.C: 474: timeTick++;
+;MAIN.C: 440: };
+;MAIN.C: 476: timeTick++;
 	incf	(_timeTick),f
 	skipnz
 	incf	(_timeTick+1),f
@@ -1841,7 +1845,7 @@ l6580:
 	ljmp	start
 	opt stack 0
 psect	maintext
-	line	478
+	line	480
 GLOBAL	__end_of_main
 	__end_of_main:
 ;; =============== function _main ends ============
@@ -2674,10 +2678,10 @@ l6160:
 	
 l6162:	
 ;rfid125.c: 42: }
-;rfid125.c: 43: while(timeOutVal<73 && i>0);
-	movlw	high(049h)
+;rfid125.c: 43: while(timeOutVal<80 && i>0);
+	movlw	high(050h)
 	subwf	(get_RFID@timeOutVal+1),w
-	movlw	low(049h)
+	movlw	low(050h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipnc
@@ -2745,8 +2749,8 @@ u1090:
 	line	54
 	
 l6182:	
-;rfid125.c: 53: if(0==flag_RFID_last && timeOutVal<=73 ||
-;rfid125.c: 54: 1==flag_RFID_last && timeOutVal>73)
+;rfid125.c: 53: if(0==flag_RFID_last && timeOutVal<=80 ||
+;rfid125.c: 54: 1==flag_RFID_last && timeOutVal>80)
 	movf	(get_RFID@flag_RFID_last),f
 	skipz
 	goto	u1101
@@ -2756,9 +2760,9 @@ u1101:
 u1100:
 	
 l6184:	
-	movlw	high(04Ah)
+	movlw	high(051h)
 	subwf	(get_RFID@timeOutVal+1),w
-	movlw	low(04Ah)
+	movlw	low(051h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipc
@@ -2778,9 +2782,9 @@ u1121:
 u1120:
 	
 l6188:	
-	movlw	high(04Ah)
+	movlw	high(051h)
 	subwf	(get_RFID@timeOutVal+1),w
-	movlw	low(04Ah)
+	movlw	low(051h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipc
@@ -2805,8 +2809,8 @@ u1140:
 	
 l6192:	
 ;rfid125.c: 57: {
-;rfid125.c: 58: timeOutVal=timerOut(1,73);
-	movlw	049h
+;rfid125.c: 58: timeOutVal=timerOut(1,80);
+	movlw	050h
 	movwf	(?_timerOut)
 	clrf	(?_timerOut+1)
 	movlw	(01h)
@@ -2846,8 +2850,8 @@ l6202:
 	
 l6204:	
 ;rfid125.c: 64: else
-;rfid125.c: 65: if(0==flag_RFID_last && timeOutVal>73 ||
-;rfid125.c: 66: 1==flag_RFID_last && timeOutVal<=73)
+;rfid125.c: 65: if(0==flag_RFID_last && timeOutVal>80 ||
+;rfid125.c: 66: 1==flag_RFID_last && timeOutVal<=80)
 	movf	(get_RFID@flag_RFID_last),f
 	skipz
 	goto	u1161
@@ -2857,9 +2861,9 @@ u1161:
 u1160:
 	
 l6206:	
-	movlw	high(04Ah)
+	movlw	high(051h)
 	subwf	(get_RFID@timeOutVal+1),w
-	movlw	low(04Ah)
+	movlw	low(051h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipnc
@@ -2879,9 +2883,9 @@ u1181:
 u1180:
 	
 l6210:	
-	movlw	high(04Ah)
+	movlw	high(051h)
 	subwf	(get_RFID@timeOutVal+1),w
-	movlw	low(04Ah)
+	movlw	low(051h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipnc
@@ -2904,8 +2908,8 @@ u1200:
 	
 l6214:	
 ;rfid125.c: 69: {
-;rfid125.c: 70: timeOutVal=timerOut(0,73);
-	movlw	049h
+;rfid125.c: 70: timeOutVal=timerOut(0,80);
+	movlw	050h
 	movwf	(?_timerOut)
 	clrf	(?_timerOut+1)
 	movlw	(0)
@@ -3051,8 +3055,8 @@ u1260:
 	line	98
 	
 l6256:	
-;rfid125.c: 97: if(0==flag_RFID_last && timeOutVal<=73 ||
-;rfid125.c: 98: 1==flag_RFID_last && timeOutVal>73)
+;rfid125.c: 97: if(0==flag_RFID_last && timeOutVal<=80 ||
+;rfid125.c: 98: 1==flag_RFID_last && timeOutVal>80)
 	movf	(get_RFID@flag_RFID_last),f
 	skipz
 	goto	u1271
@@ -3062,9 +3066,9 @@ u1271:
 u1270:
 	
 l6258:	
-	movlw	high(04Ah)
+	movlw	high(051h)
 	subwf	(get_RFID@timeOutVal+1),w
-	movlw	low(04Ah)
+	movlw	low(051h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipc
@@ -3084,9 +3088,9 @@ u1291:
 u1290:
 	
 l6262:	
-	movlw	high(04Ah)
+	movlw	high(051h)
 	subwf	(get_RFID@timeOutVal+1),w
-	movlw	low(04Ah)
+	movlw	low(051h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipc
@@ -3111,8 +3115,8 @@ u1310:
 	
 l6266:	
 ;rfid125.c: 101: {
-;rfid125.c: 102: timeOutVal=timerOut(1,73);
-	movlw	049h
+;rfid125.c: 102: timeOutVal=timerOut(1,80);
+	movlw	050h
 	movwf	(?_timerOut)
 	clrf	(?_timerOut+1)
 	movlw	(01h)
@@ -3165,8 +3169,8 @@ l6278:
 	
 l6280:	
 ;rfid125.c: 109: else
-;rfid125.c: 110: if(0==flag_RFID_last && timeOutVal>73 ||
-;rfid125.c: 111: 1==flag_RFID_last && timeOutVal<=73)
+;rfid125.c: 110: if(0==flag_RFID_last && timeOutVal>80 ||
+;rfid125.c: 111: 1==flag_RFID_last && timeOutVal<=80)
 	movf	(get_RFID@flag_RFID_last),f
 	skipz
 	goto	u1331
@@ -3176,9 +3180,9 @@ u1331:
 u1330:
 	
 l6282:	
-	movlw	high(04Ah)
+	movlw	high(051h)
 	subwf	(get_RFID@timeOutVal+1),w
-	movlw	low(04Ah)
+	movlw	low(051h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipnc
@@ -3198,9 +3202,9 @@ u1351:
 u1350:
 	
 l6286:	
-	movlw	high(04Ah)
+	movlw	high(051h)
 	subwf	(get_RFID@timeOutVal+1),w
-	movlw	low(04Ah)
+	movlw	low(051h)
 	skipnz
 	subwf	(get_RFID@timeOutVal),w
 	skipnc
